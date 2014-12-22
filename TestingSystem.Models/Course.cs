@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-namespace TestingSystem.Models
+﻿namespace TestingSystem.Models
 {
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class Course
     {
         private ICollection<Test> tests;
@@ -16,7 +14,12 @@ namespace TestingSystem.Models
 
         public int ID { get; set; }
 
+        [Required]
+        [MinLength(5)]
+        [MaxLength(256)]
         public string Name { get; set; }
+
+        [Range(1,20)]
         public int Semester { get; set; }
 
         public int SpecialtyID { get; set; }

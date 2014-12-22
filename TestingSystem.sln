@@ -5,9 +5,11 @@ VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingSystem.Web", "TestingSystem.Web\TestingSystem.Web.csproj", "{407C7972-9855-486B-BBCE-D527329EE7D1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingSyste.Data", "TestingSyste.Data\TestingSyste.Data.csproj", "{96515572-6DF2-47F9-8073-D1C47FA10944}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingSystem.Data", "TestingSyste.Data\TestingSystem.Data.csproj", "{96515572-6DF2-47F9-8073-D1C47FA10944}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingSystem.Models", "TestingSystem.Models\TestingSystem.Models.csproj", "{8BAF5856-1B60-45C2-AB15-EECD605B31B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestingSystem.Common", "TestingSystem.Common\TestingSystem.Common.csproj", "{5AABD861-F7A2-4A25-8BD1-994E658F3730}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +29,10 @@ Global
 		{8BAF5856-1B60-45C2-AB15-EECD605B31B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BAF5856-1B60-45C2-AB15-EECD605B31B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BAF5856-1B60-45C2-AB15-EECD605B31B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5AABD861-F7A2-4A25-8BD1-994E658F3730}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5AABD861-F7A2-4A25-8BD1-994E658F3730}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5AABD861-F7A2-4A25-8BD1-994E658F3730}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5AABD861-F7A2-4A25-8BD1-994E658F3730}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

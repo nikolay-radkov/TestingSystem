@@ -252,9 +252,9 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\TestingSyste.Data\TestingSyste.Data.csproj">
+    <ProjectReference Include="..\TestingSyste.Data\TestingSystem.Data.csproj">
       <Project>{96515572-6df2-47f9-8073-d1c47fa10944}</Project>
-      <Name>TestingSyste.Data</Name>
+      <Name>TestingSystem.Data</Name>
     </ProjectReference>
     <ProjectReference Include="..\TestingSystem.Models\TestingSystem.Models.csproj">
       <Project>{8baf5856-1b60-45c2-ab15-eecd605b31b8}</Project>

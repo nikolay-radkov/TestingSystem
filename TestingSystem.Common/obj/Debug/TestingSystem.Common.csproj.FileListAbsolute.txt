@@ -1,0 +1,5 @@
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Common\bin\Debug\TestingSystem.Common.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Common\bin\Debug\TestingSystem.Common.pdb
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Common\obj\Debug\TestingSystem.Common.csprojResolveAssemblyReference.cache
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Common\obj\Debug\TestingSystem.Common.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Common\obj\Debug\TestingSystem.Common.pdb

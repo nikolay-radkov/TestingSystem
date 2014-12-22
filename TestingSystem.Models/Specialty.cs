@@ -1,6 +1,7 @@
 ﻿namespace TestingSystem.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
 
     public class Specialty
     {
@@ -15,6 +16,9 @@
 
         public int ID { get; set; }
 
+        [Required]
+        [MinLength(2)]
+        [MaxLength(256)]
         public string Name { get; set; }
 
         public virtual ICollection<Course> Courses
