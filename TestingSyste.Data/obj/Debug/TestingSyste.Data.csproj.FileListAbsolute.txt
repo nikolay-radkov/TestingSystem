@@ -1,0 +1,16 @@
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\TestingSyste.Data.dll.config
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\TestingSyste.Data.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\TestingSyste.Data.pdb
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\EntityFramework.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\EntityFramework.SqlServer.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\Microsoft.AspNet.Identity.Core.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\TestingSystem.Models.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\TestingSystem.Models.pdb
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\EntityFramework.xml
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\EntityFramework.SqlServer.xml
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\Microsoft.AspNet.Identity.Core.xml
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\obj\Debug\TestingSyste.Data.csprojResolveAssemblyReference.cache
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\obj\Debug\TestingSyste.Data.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\obj\Debug\TestingSyste.Data.pdb
