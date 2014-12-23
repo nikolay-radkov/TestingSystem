@@ -11,4 +11,3 @@ D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\Tes
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Models\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Models\obj\Debug\TestingSystem.Models.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Models\obj\Debug\TestingSystem.Models.pdb
-D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Models\obj\Debug\TestingSystem.Models.csprojResolveAssemblyReference.cache
