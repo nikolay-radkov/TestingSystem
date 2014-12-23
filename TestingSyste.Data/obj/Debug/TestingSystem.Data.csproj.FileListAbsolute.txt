@@ -1,4 +1,3 @@
-D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\obj\Debug\TestingSystem.Data.csprojResolveAssemblyReference.cache
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\TestingSystem.Data.dll.config
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\TestingSystem.Data.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\TestingSystem.Data.pdb
@@ -14,5 +13,6 @@ D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\Tes
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\EntityFramework.SqlServer.xml
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\Microsoft.AspNet.Identity.Core.xml
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\obj\Debug\TestingSystem.Data.csprojResolveAssemblyReference.cache
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\obj\Debug\TestingSystem.Data.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSyste.Data\obj\Debug\TestingSystem.Data.pdb
