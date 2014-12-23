@@ -10,10 +10,10 @@ using Microsoft.AspNet.Identity;
 
 using AutoMapper.QueryableExtensions;
 using TestingSystem.Web.Models;
+using TestingSystem.Web.InputModels;
 
 namespace TestingSystem.Web.Controllers.WebApi
 {
-    [Authorize]
     public class TestsController : BaseApiController
     {
         public TestsController(ITestingSystemData data)
@@ -23,25 +23,24 @@ namespace TestingSystem.Web.Controllers.WebApi
         }
 
         public TestsController()
-            : this(new TestingSystemData()) 
+            : this(new TestingSystemData())
         {
 
         }
 
-
         // api/Tests/All
         [HttpPost]
+        [Authorize]
         public IHttpActionResult All()
         {
             var studentID = this.User.Identity.GetUserId();
-            
             var student = this.Data.Students.GetById(studentID);
 
             var tests = this.Data
                             .Tests.All()
-                            .Where(t => t.Course.SpecialtyID == student.SpecialtyID 
-                                && t.EndDate > DateTime.Now 
-                                && t.StartDate < DateTime.Now 
+                            .Where(t => t.Course.SpecialtyID == student.SpecialtyID
+                                && t.EndDate > DateTime.Now
+                                && t.StartDate < DateTime.Now
                                 && t.Course.Semester == student.Semester)
                             .AsQueryable()
                             .Project()
@@ -53,18 +52,46 @@ namespace TestingSystem.Web.Controllers.WebApi
 
         // api/Tests/Questions/5
         [HttpPost]
+        [Authorize]
         public IHttpActionResult Questions(int id)
         {
+            var questions = this.Data
+                                .Questions
+                                .All()
+                                .Where(q => q.TestID == id)
+                                .AsQueryable()
+                                .Project()
+                                .To<QuestionViewModel>()
+                                .ToList();
 
-            return Ok();
+            return Ok(questions);
         }
 
         // api/Tests/Result/5
         [HttpPost]
-        public IHttpActionResult Result(int id)
+        [Authorize]
+        public IHttpActionResult Result(int id, ICollection<AnswerBindingModel> userAnswers)
         {
+            var test = this.Data.Tests.GetById(id);
 
-            return Ok();
+            var points = 0.0;
+
+            foreach (var userAnswer in userAnswers)
+            {
+                var question = this.Data.Questions.GetById(userAnswer.QuestionID);
+
+                foreach (var answerID in userAnswer.AnswerIDs)
+                {
+                    var answer = this.Data.Answers.GetById(answerID);
+
+                    if (answer.IsCorrect)
+                    {
+                        points += 1.0 / question.CorrectAnswersCount;
+                    }
+                }
+            }
+
+            return Ok(points);
         }
     }
 }
