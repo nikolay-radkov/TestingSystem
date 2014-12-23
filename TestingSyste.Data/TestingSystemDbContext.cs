@@ -8,7 +8,7 @@
     public class TestingSystemDbContext : IdentityDbContext<Student>, ITestingSystemDbContext
     {
         public TestingSystemDbContext()
-            : base("TestingSystemConnection", throwIfV1Schema: false)
+            : base("TestingSystemConnectionAppHarbor", throwIfV1Schema: false)
         {
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<TestingSystemDbContext, Configuration>());
         }
