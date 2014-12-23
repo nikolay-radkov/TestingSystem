@@ -11,7 +11,7 @@ namespace TestingSystem.Models
         public int ID { get; set; }
 
         [Required]
-        [MinLength(5)]
+        [MinLength(2)]
         [MaxLength(256)]
         public string Text { get; set; }
 
