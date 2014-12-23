@@ -8,11 +8,16 @@
     using TestingSystem.Data.Repositories.Base;
     using TestingSystem.Models;
 
-    public class TestingSystemData : TestingSyste.Data.ITestingSystemData
+    public class TestingSystemData : ITestingSystemData
     {
         private readonly TestingSystemDbContext context;
 
         private readonly Dictionary<Type, object> repositories = new Dictionary<Type, object>();
+
+        public TestingSystemData()
+            : this(new TestingSystemDbContext())
+        {
+        }
 
         public TestingSystemData(TestingSystemDbContext context)
         {

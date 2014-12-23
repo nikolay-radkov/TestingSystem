@@ -4,7 +4,7 @@
     using System.Data.Entity;
     using TestingSystem.Models;
 
-    interface ITestingSystemDbContext
+    public interface ITestingSystemDbContext
     {
         IDbSet<Answer> Answers { get; set; }
 

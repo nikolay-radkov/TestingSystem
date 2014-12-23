@@ -1,10 +1,10 @@
-﻿namespace TestingSyste.Data
+﻿namespace TestingSystem.Data
 {
     using TestingSystem.Data;
     using TestingSystem.Data.Repositories.Base;
     using TestingSystem.Models;
 
-    interface ITestingSystemData
+    public interface ITestingSystemData
     {
         IRepository<Answer> Answers { get; }
 
