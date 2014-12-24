@@ -11,15 +11,18 @@ using Microsoft.AspNet.Identity;
 using AutoMapper.QueryableExtensions;
 using TestingSystem.Web.Models;
 using TestingSystem.Web.InputModels;
+using TestingSystem.Models;
 
 namespace TestingSystem.Web.Controllers.WebApi
 {
     public class TestsController : BaseApiController
     {
+        private Dictionary<int, int> previousQuestions;
+
         public TestsController(ITestingSystemData data)
             : base(data)
         {
-
+            this.previousQuestions = new Dictionary<int, int>();
         }
 
         public TestsController()
@@ -55,6 +58,7 @@ namespace TestingSystem.Web.Controllers.WebApi
         [Authorize]
         public IHttpActionResult Questions(int id)
         {
+            // TODO: number of correct answer
             var questions = this.Data
                                 .Questions
                                 .All()
@@ -70,28 +74,55 @@ namespace TestingSystem.Web.Controllers.WebApi
         // api/Tests/Result/5
         [HttpPost]
         [Authorize]
-        public IHttpActionResult Result(int id, ICollection<AnswerBindingModel> userAnswers)
+        public IHttpActionResult Result(int id, AnswerBindingModel results)
         {
+            var userAnswers = results.Answers.Split(',');
+
             var test = this.Data.Tests.GetById(id);
 
             var points = 0.0;
 
             foreach (var userAnswer in userAnswers)
             {
-                var question = this.Data.Questions.GetById(userAnswer.QuestionID);
+                var currentAnswer = this.Data.Answers.GetById(int.Parse(userAnswer));
+                
+                var questionCorrectAnswers = 0;
 
-                foreach (var answerID in userAnswer.AnswerIDs)
+                if (this.previousQuestions.ContainsKey(currentAnswer.QuestionID))
                 {
-                    var answer = this.Data.Answers.GetById(answerID);
+                    questionCorrectAnswers = this.previousQuestions[currentAnswer.QuestionID];
+                }
+                else
+                {
+                    questionCorrectAnswers = this.Data.Questions.GetById(currentAnswer.QuestionID).CorrectAnswersCount;
+                    this.previousQuestions[currentAnswer.QuestionID] = questionCorrectAnswers;
+                }
 
-                    if (answer.IsCorrect)
-                    {
-                        points += 1.0 / question.CorrectAnswersCount;
-                    }
+                if (currentAnswer.IsCorrect)
+                {
+                    points += 1.0 / questionCorrectAnswers;
                 }
             }
 
+            this.SaveResult(id, points);
+
             return Ok(points);
+        }
+
+        private void SaveResult(int testID, double points)
+        {
+            var userID = this.User.Identity.GetUserId();
+
+            var result = new Result
+            {
+                StudentID = userID,
+                Points = points,
+                TestID = testID
+            };
+
+            this.Data.Results.Add(result);
+
+            this.Data.SaveChanges();
         }
     }
 }

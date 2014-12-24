@@ -13,6 +13,8 @@ namespace TestingSystem.Web.Models
 
         public string Text { get; set; }
 
+        public int CorrectAnswersCount { get; set; }
+
         public ICollection<AnswerViewModel> Answers { get; set; }
     }
 }
