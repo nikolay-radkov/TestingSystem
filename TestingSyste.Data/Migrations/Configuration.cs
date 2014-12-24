@@ -1,12 +1,14 @@
 namespace TestingSystem.Data.Migrations
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
     using System.Linq;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+
     using TestingSystem.Models;
 
     public sealed class Configuration : DbMigrationsConfiguration<TestingSystemDbContext>
@@ -73,8 +75,7 @@ namespace TestingSystem.Data.Migrations
             context.Specialties.AddOrUpdate(
                 s => s.Name,
                 new Specialty { Name = "Компютърни системи и технологии" },
-                new Specialty { Name = "Телекомуникации" }
-            );
+                new Specialty { Name = "Телекомуникации" });
 
             context.SaveChanges();
             this.SeedCourses(context);
@@ -97,8 +98,7 @@ namespace TestingSystem.Data.Migrations
                     Name = "Паралелно програмиране",
                     SpecialtyID = specialties[0].ID,
                     Semester = 7
-                }
-            );
+                });
 
             context.SaveChanges();
             this.SeedTests(context);
@@ -121,8 +121,7 @@ namespace TestingSystem.Data.Migrations
                     StartDate = DateTime.Now.AddYears(-1),
                     EndDate = DateTime.Now,
                     CourseID = courses[1].ID
-                }
-            );
+                });
 
             context.SaveChanges();
             this.SeedQuestions(context);
@@ -157,7 +156,7 @@ namespace TestingSystem.Data.Migrations
             question1.Answers.Add(answer1);
             question1.Answers.Add(answer2);
             context.SaveChanges();
-           
+
             var answer3 = new Answer()
             {
                 Text = "ФКСУ",

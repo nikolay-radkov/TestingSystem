@@ -1,11 +1,12 @@
 ﻿namespace TestingSystem.Models
 {
-    using Microsoft.AspNet.Identity;
-    using Microsoft.AspNet.Identity.EntityFramework;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.Security.Claims;
     using System.Threading.Tasks;
+
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
     public class Student : IdentityUser
     {
@@ -35,15 +36,21 @@
 
         public virtual ICollection<Result> Results
         {
-            get { return results; }
-            set { results = value; }
+            get
+            {
+                return this.results;
+            }
+
+            set
+            {
+                this.results = value;
+            }
         }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<Student> manager)
         {
-            // Note the authenticationType must match the one defined in CookieAuthenticationOptions.AuthenticationType
             var userIdentity = await manager.CreateIdentityAsync(this, DefaultAuthenticationTypes.ApplicationCookie);
-            // Add custom user claims here
+  
             return userIdentity;
         }
     }

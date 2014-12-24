@@ -23,14 +23,28 @@
 
         public virtual ICollection<Course> Courses
         {
-            get { return course; }
-            set { course = value; }
+            get
+            {
+                return this.course;
+            }
+
+            set
+            {
+                this.course = value;
+            }
         }
 
         public virtual ICollection<Student> Students
         {
-            get { return students; }
-            set { students = value; }
+            get
+            {
+                return this.students;
+            }
+
+            set
+            {
+                this.students = value;
+            }
         }
     }
 }

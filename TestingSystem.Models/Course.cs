@@ -19,17 +19,24 @@
         [MaxLength(256)]
         public string Name { get; set; }
 
-        [Range(1,20)]
+        [Range(1, 20)]
         public int Semester { get; set; }
 
         public int SpecialtyID { get; set; }
-   
+
         public virtual Specialty Specialty { get; set; }
 
         public virtual ICollection<Test> Tests
         {
-            get { return tests; }
-            set { tests = value; }
+            get
+            {
+                return this.tests;
+            }
+
+            set
+            {
+                this.tests = value;
+            }
         }
     }
 }

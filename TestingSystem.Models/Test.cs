@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-
-namespace TestingSystem.Models
+﻿namespace TestingSystem.Models
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
+
     public class Test
     {
         private ICollection<Result> results;
@@ -32,14 +30,28 @@ namespace TestingSystem.Models
 
         public virtual ICollection<Result> Results
         {
-            get { return results; }
-            set { results = value; }
+            get
+            {
+                return this.results;
+            }
+
+            set
+            {
+                this.results = value;
+            }
         }
 
         public virtual ICollection<Question> Questions
         {
-            get { return questions; }
-            set { questions = value; }
+            get
+            {
+                return this.questions;
+            }
+
+            set
+            {
+                this.questions = value;
+            }
         }
     }
 }

@@ -15,6 +15,7 @@
         IRepository<Question> Questions { get; }
 
         IRepository<Result> Results { get; }
+
         IRepository<Specialty> Specialties { get; }
 
         IRepository<Student> Students { get; }

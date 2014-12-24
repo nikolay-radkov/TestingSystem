@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-
-namespace TestingSystem.Models
+﻿namespace TestingSystem.Models
 {
+    using System.ComponentModel.DataAnnotations;
+
     public class Answer
     {
         public int ID { get; set; }
