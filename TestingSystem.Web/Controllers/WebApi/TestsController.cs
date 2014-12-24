@@ -1,20 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Web.Http;
-using TestingSystem.Data;
-using TestingSystem.Web.Controllers.WebApi.Base;
-using Microsoft.AspNet.Identity;
-
-using AutoMapper.QueryableExtensions;
-using TestingSystem.Web.Models;
-using TestingSystem.Web.InputModels;
-using TestingSystem.Models;
-
-namespace TestingSystem.Web.Controllers.WebApi
+﻿namespace TestingSystem.Web.Controllers.WebApi
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Web.Http;
+
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNet.Identity;
+
+    using TestingSystem.Data;
+    using TestingSystem.Models;
+    using TestingSystem.Web.Controllers.WebApi.Base;
+    using TestingSystem.Web.InputModels;
+    using TestingSystem.Web.Models;
+
     public class TestsController : BaseApiController
     {
         private Dictionary<int, int> previousQuestions;
@@ -39,8 +38,10 @@ namespace TestingSystem.Web.Controllers.WebApi
             var studentID = this.User.Identity.GetUserId();
             var student = this.Data.Students.GetById(studentID);
 
+            // TODO: Check the user results for current tests
             var tests = this.Data
-                            .Tests.All()
+                            .Tests
+                            .All()
                             .Where(t => t.Course.SpecialtyID == student.SpecialtyID
                                 && t.EndDate > DateTime.Now
                                 && t.StartDate < DateTime.Now
@@ -58,7 +59,6 @@ namespace TestingSystem.Web.Controllers.WebApi
         [Authorize]
         public IHttpActionResult Questions(int id)
         {
-            // TODO: number of correct answer
             var questions = this.Data
                                 .Questions
                                 .All()
