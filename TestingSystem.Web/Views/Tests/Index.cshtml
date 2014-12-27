@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNet.Identity
+@model  ICollection<TestingSystem.Web.Models.TestViewModel>
+@{
+    ViewBag.Title = "Tests";
+}
+<div class="container">
+    <div class="row">
+        @foreach (var test in Model)
+        {
+
+            <a href="@Url.Action("Questions", "Tests",  routeValues: new {id = test.ID })">
+                <div class="col-xs-3">
+                    <div class="offer offer-radius offer-info">
+                        <div class="shape">
+                            <div class="shape-text">
+                                Test
+                            </div>
+                        </div>
+                        <div class="offer-content">
+                            <h3 class="lead">
+                                @test.Name
+                            </h3>
+                            <p>
+                                @test.CourseName
+                                <hr />
+                                Active
+                                <br />
+                                From: @test.StartDate
+                                <br />
+                                To: @test.EndDate
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </a>
+        }
+    </div>
+</div>

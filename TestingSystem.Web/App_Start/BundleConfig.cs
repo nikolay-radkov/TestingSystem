@@ -43,6 +43,9 @@ namespace TestingSystem.Web
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                   "~/Scripts/jquery-{version}.js"));
 
+            bundles.Add(new ScriptBundle("~/bundles/tweenlite").Include(
+               "~/Scripts/TweenLite.min.js"));
+
             //bundles.Add(new ScriptBundle("~/bundles/jqueryval").Include(
             //            "~/Scripts/jquery.validate*"));
 

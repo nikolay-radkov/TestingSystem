@@ -1,20 +1,20 @@
-﻿namespace TestingSystem.Web.Controllers.WebApi
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+using System.Web.Mvc;
+using TestingSystem.Data;
+using TestingSystem.Web.Controllers.Base;
+using TestingSystem.Web.Models;
+using Microsoft.AspNet.Identity;
+using AutoMapper.QueryableExtensions;
+using TestingSystem.Web.InputModels;
+using TestingSystem.Models;
+
+namespace TestingSystem.Web.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Web.Http;
-
-    using AutoMapper.QueryableExtensions;
-    using Microsoft.AspNet.Identity;
-
-    using TestingSystem.Data;
-    using TestingSystem.Models;
-    using TestingSystem.Web.Controllers.WebApi.Base;
-    using TestingSystem.Web.InputModels;
-    using TestingSystem.Web.Models;
-
-    public class TestsController : BaseApiController
+    [Authorize]
+    public class TestsController : BaseController
     {
         private Dictionary<int, int> previousQuestions;
 
@@ -24,16 +24,9 @@
             this.previousQuestions = new Dictionary<int, int>();
         }
 
-        public TestsController()
-            : this(new TestingSystemData())
-        {
-
-        }
-
-        // api/Tests/All
-        [HttpPost]
+        [HttpGet]
         [Authorize]
-        public IHttpActionResult All()
+        public ActionResult Index()
         {
             var studentID = this.User.Identity.GetUserId();
             var student = this.Data.Students.GetById(studentID);
@@ -51,13 +44,13 @@
                             .To<TestViewModel>()
                             .ToList();
 
-            return Ok(tests);
+            return View(tests);
         }
 
-        // api/Tests/Questions/5
-        [HttpPost]
+
+        [HttpGet]
         [Authorize]
-        public IHttpActionResult Questions(int id)
+        public ActionResult Questions(int id)
         {
             //TODO: Chech if is authorize
             var questions = this.Data
@@ -69,13 +62,12 @@
                                 .To<QuestionViewModel>()
                                 .ToList();
 
-            return Ok(questions);
+            return View(questions);
         }
 
-        // api/Tests/Result/5
         [HttpPost]
         [Authorize]
-        public IHttpActionResult Result(int id, AnswerBindingModel results)
+        public ActionResult Result(int id, AnswerBindingModel results)
         {
             var userAnswers = results.Answers.Split(',');
 
@@ -86,7 +78,7 @@
             foreach (var userAnswer in userAnswers)
             {
                 var currentAnswer = this.Data.Answers.GetById(int.Parse(userAnswer));
-                
+
                 var questionCorrectAnswers = 0;
 
                 if (this.previousQuestions.ContainsKey(currentAnswer.QuestionID))
@@ -107,7 +99,7 @@
 
             this.SaveResult(id, points);
 
-            return Ok(points);
+            return View(points);
         }
 
         private void SaveResult(int testID, double points)

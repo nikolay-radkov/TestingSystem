@@ -112,12 +112,14 @@ namespace TestingSystem.Data.Migrations
                 t => t.StartDate,
                 new Test
                 {
+                    Name = "Test 1",
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddYears(1),
                     CourseID = courses[0].ID
                 },
                 new Test
                 {
+                     Name = "Test 1",
                     StartDate = DateTime.Now.AddYears(-1),
                     EndDate = DateTime.Now,
                     CourseID = courses[1].ID
