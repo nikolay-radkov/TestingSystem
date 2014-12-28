@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Questions";
 }
+<div>
+    <span id="countdown" class="timer"></span>
+</div>
 <div class="container center-block">
     <div class="row ">
         <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
@@ -90,6 +93,24 @@
                 $('div.bhoechie-tab-menu>div.list-group>a').eq(index).addClass('answered');
             });
         });
+
+        var seconds = 60 * 20;
+        var countdownTimer = setInterval('secondPassed()', 1000);
+
+        function secondPassed() {
+            var minutes = Math.round((seconds - 30) / 60);
+            var remainingSeconds = seconds % 60;
+            if (remainingSeconds < 10) {
+                remainingSeconds = "0" + remainingSeconds;
+            }
+            document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
+            if (seconds == 0) {
+                clearInterval(countdownTimer);
+                getAnswers();
+            } else {
+                seconds--;
+            }
+        }
 
         function getAnswers() {
             var selected = [];
