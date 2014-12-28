@@ -1,7 +1,115 @@
-﻿
+﻿@model  ICollection<TestingSystem.Web.Models.QuestionViewModel>
 @{
     ViewBag.Title = "Questions";
 }
 
-<h2>Questions</h2>
+<div class="container center-block">
+    <div class="row ">
+        <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1"></div>
+        <div class="col-lg-8 col-md-8 col-sm-8 col-xs-8 bhoechie-tab-container">
+            <div class="col-lg-1 col-md-1 col-sm-1 col-xs-1 bhoechie-tab-menu">
+                <div class="list-group">
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <a href="#" class="list-group-item text-center">
+                            № @(i + 1)
+                        </a>
+                    }
+                    <a href="#" class="list-group-item active text-center">
+                        <h4 class="glyphicon glyphicon-upload"></h4><br />Finish
+                    </a>
+                </div>
+            </div>
+            <div id="answers" class="col-lg-9 col-md-9 col-sm-9 col-xs-9 bhoechie-tab">
+                <!-- questions section -->
+                @foreach (var question in Model)
+                {
+                    <div class="bhoechie-tab-content">
+                        <h2 style="margin-top: 0;color:#55518a">@question.Text</h2>
+                        <hr />
+                        @foreach (var answer in question.Answers)
+                        {
+                            <div class="row">
+                                <div class="col-md-1">
+                                    @if (question.CorrectAnswersCount == 1)
+                                    {
+                                        <input type="radio" id="answer @answer.ID" name="ID" value="@answer.ID" />
+                                    }
+                                    else
+                                    {
+                                        <input type="checkbox" id="answer @answer.ID" name="ID" value="@answer.ID" />
+                                    }
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="answer @answer.ID">@answer.Text</label>
+                                </div>
+                            </div>
+                        }
+                        <br />
+                    </div>
+                }
+                <!-- finish section -->
+                <div class="bhoechie-tab-content active text-center">
+                    <h1 class="glyphicon glyphicon-upload" style="font-size:12em;color:#55518a"></h1>
+                    <br />
+                    <button style="margin-top: 0;color:#55518a" onclick="getAnswers()">Finish</button>
+                    <br />
+                </div>
 
+            </div>
+        </div>
+    </div>
+@using (Html.BeginForm("Result", "Tests", new { id = Url.RequestContext.RouteData.Values["id"] }, FormMethod.Post, new { role = "form" }))
+{
+    <input type="text" id="user-answers" name="Answers" value="" class="hidden" />
+    <input type="submit" id="finish"  value="Finish" class="hidden" />
+}
+</div>
+
+@section Scripts
+{
+    <script>
+        var answers = [];
+
+        $(document).ready(function () {
+            $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+                e.preventDefault();
+                $(this).siblings('a.active').removeClass("active");
+                $(this).addClass("active");
+                var index = $(this).index();
+                $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+                $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+            });
+
+        });
+
+        function addAnswer(e)
+        {
+            var id = $(this).id.replace('answer ');
+
+            var value = $(this).val();
+            answers[id] = value;
+        }
+
+        function changeAnswer(e)
+        {
+            var id = $(this).id.replace('answer ');
+
+            var value = $(this).val();
+            answers[id] = value;
+        }
+
+        function getAnswers()
+        {
+            var selected = [];
+            $('#answers input:checked').each(function () {
+                selected.push($(this).val());
+            });
+
+            var answers = selected.join(',');
+
+            $('#user-answers')[0].value = answers;
+            $('#finish').click();
+        }
+    </script>
+}
