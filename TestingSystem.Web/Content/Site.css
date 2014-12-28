@@ -165,6 +165,7 @@ body {
 /* QUESTION */
 /*  bhoechie tab */
 div.bhoechie-tab-container {
+    position: relative;
     z-index: 10;
     background-color: #ffffff;
     padding: 0 !important;
@@ -193,6 +194,7 @@ div.bhoechie-tab-menu {
 
         div.bhoechie-tab-menu div.list-group > a {
             margin-bottom: 0;
+            padding: 0;
         }
 
             div.bhoechie-tab-menu div.list-group > a .glyphicon,
@@ -239,4 +241,10 @@ div.bhoechie-tab-content {
 
 div.bhoechie-tab div.bhoechie-tab-content:not(.active) {
     display: none;
+}
+
+a.answered {
+    background-color: #5cb85c;
+    background-image: #5cb85c;
+    color: #ffffff;
 }
