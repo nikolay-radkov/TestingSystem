@@ -6,6 +6,7 @@ D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\Tes
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\bin\AutoMapper.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\bin\EntityFramework.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\bin\EntityFramework.SqlServer.dll
+D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\bin\jQuery.Validation.Unobtrusive.Native.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\bin\Microsoft.AspNet.Identity.Core.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\bin\Microsoft.AspNet.Identity.EntityFramework.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\bin\Microsoft.AspNet.Identity.Owin.dll
@@ -75,4 +76,3 @@ D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\Tes
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\obj\Debug\TestingSystem.Web.csprojResolveAssemblyReference.cache
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\obj\Debug\TestingSystem.Web.dll
 D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\obj\Debug\TestingSystem.Web.pdb
-D:\Documents\Telerik Courses homeworks\GitHub Local Repository\TestingSystem\TestingSystem.Web\bin\jQuery.Validation.Unobtrusive.Native.dll
