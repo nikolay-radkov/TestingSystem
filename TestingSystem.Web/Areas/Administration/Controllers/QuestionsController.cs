@@ -11,7 +11,7 @@ using TestingSystem.Models;
 
 namespace TestingSystem.Web.Areas.Administration.Controllers
 {
-    [Authorize(Roles = "Admin")]
+    [Authorize(Roles = "admin")]
     public class QuestionsController : Controller
     {
         private TestingSystemDbContext db = new TestingSystemDbContext();
