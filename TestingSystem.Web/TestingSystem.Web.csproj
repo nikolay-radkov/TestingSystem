@@ -213,6 +213,13 @@
     <Compile Include="App_Start\ViewEnginesConfiguration.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Areas\Administration\AdministrationAreaRegistration.cs" />
+    <Compile Include="Areas\Administration\Controllers\AnswersController.cs" />
+    <Compile Include="Areas\Administration\Controllers\CoursesController.cs" />
+    <Compile Include="Areas\Administration\Controllers\QuestionsController.cs" />
+    <Compile Include="Areas\Administration\Controllers\ResultsController.cs" />
+    <Compile Include="Areas\Administration\Controllers\SpecialtiesController.cs" />
+    <Compile Include="Areas\Administration\Controllers\StudentsController.cs" />
+    <Compile Include="Areas\Administration\Controllers\TestsController.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -306,6 +313,43 @@
     <Content Include="Content\bootstrap-theme.css.map" />
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Areas\Administration\Views\web.config" />
+    <Content Include="Areas\Administration\Views\_ViewStart.cshtml" />
+    <Content Include="Areas\Administration\Views\Shared\_Layout.cshtml" />
+    <Content Include="Areas\Administration\Views\Answers\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Answers\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\Answers\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Answers\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Answers\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Questions\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Questions\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\Questions\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Questions\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Questions\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Tests\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Tests\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\Tests\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Tests\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Tests\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Results\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Results\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\Results\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Results\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Results\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Students\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Students\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\Students\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Students\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Students\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Specialties\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Specialties\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\Specialties\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Specialties\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Specialties\Index.cshtml" />
+    <Content Include="Areas\Administration\Views\Courses\Create.cshtml" />
+    <Content Include="Areas\Administration\Views\Courses\Delete.cshtml" />
+    <Content Include="Areas\Administration\Views\Courses\Details.cshtml" />
+    <Content Include="Areas\Administration\Views\Courses\Edit.cshtml" />
+    <Content Include="Areas\Administration\Views\Courses\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\icon.png" />
@@ -361,12 +405,11 @@
     <Content Include="Views\Tests\Index.cshtml" />
     <Content Include="Views\Tests\Questions.cshtml" />
     <Content Include="Views\Tests\Result.cshtml" />
+    <Content Include="Views\Shared\_AdministrationDropdown.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Controllers\" />
     <Folder Include="Areas\Administration\Models\" />
-    <Folder Include="Areas\Administration\Views\Shared\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

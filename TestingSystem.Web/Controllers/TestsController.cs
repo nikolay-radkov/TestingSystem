@@ -10,6 +10,7 @@ using Microsoft.AspNet.Identity;
 using AutoMapper.QueryableExtensions;
 using TestingSystem.Web.InputModels;
 using TestingSystem.Models;
+using System.Net;
 
 namespace TestingSystem.Web.Controllers
 {
@@ -51,8 +52,13 @@ namespace TestingSystem.Web.Controllers
         [HttpGet]
         [Authorize]
         [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
-        public ActionResult Questions(int id)
+        public ActionResult Questions(int? id)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
             if (Session["Visited"] != null)
             {
                 Session["Visited"] = null;
@@ -78,8 +84,13 @@ namespace TestingSystem.Web.Controllers
         [HttpPost]
         [Authorize]
         [ValidateAntiForgeryToken]
-        public ActionResult Result(int id, AnswerBindingModel results)
+        public ActionResult Result(int? id, AnswerBindingModel results)
         {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+
              var points = 0.0;
 
              if (results.Answers != null)
@@ -111,7 +122,7 @@ namespace TestingSystem.Web.Controllers
                  }
              }
 
-            this.SaveResult(id, points);
+            this.SaveResult((int)id, points);
 
             var responseResult = new FinalResultViewModel
             {

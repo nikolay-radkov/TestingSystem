@@ -57,8 +57,13 @@
         // api/Tests/Questions/5
         [HttpPost]
         [Authorize]
-        public IHttpActionResult Questions(int id)
+        public IHttpActionResult Questions(int? id)
         {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
             //TODO: Chech if is authorize
             var questions = this.Data
                                 .Questions
@@ -75,8 +80,13 @@
         // api/Tests/Result/5
         [HttpPost]
         [Authorize]
-        public IHttpActionResult Result(int id, AnswerBindingModel results)
+        public IHttpActionResult Result(int? id, AnswerBindingModel results)
         {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
             var points = 0.0;
 
             if (results.Answers != null)
@@ -108,7 +118,7 @@
                 }
             }
 
-            this.SaveResult(id, points);
+            this.SaveResult((int)id, points);
 
             var responseResult = new FinalResultViewModel
             {
