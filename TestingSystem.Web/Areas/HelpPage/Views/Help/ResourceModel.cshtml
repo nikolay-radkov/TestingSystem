@@ -3,17 +3,16 @@
 @model ModelDescription
 
 <link type="text/css" href="~/Areas/HelpPage/HelpPage.css" rel="stylesheet" />
-<div id="body" class="help-page">
-    <section class="featured">
-        <div class="content-wrapper">
-            <p>
-                @Html.ActionLink("Help Page Home", "Index")
-            </p>
+<div class="vertical-offset-15">
+    <div class="panel panel-info text-center center-x">
+        <div class="panel-heading">
+            <h1 class="bhoechie-header">@Model.Name</h1>
         </div>
-    </section>
-    <h1>@Model.Name</h1>
-    <p>@Model.Documentation</p>
-    <section class="content-wrapper main-content clear-fix">
-        @Html.DisplayFor(m => Model)
-    </section>
+        <div class="panel-body">
+            <p>@Model.Documentation</p>
+            <section class="content-wrapper main-content clear-fix">
+                @Html.DisplayFor(m => Model)
+            </section>
+        </div>
+    </div>
 </div>
