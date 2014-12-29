@@ -113,7 +113,13 @@ namespace TestingSystem.Web.Controllers
 
             this.SaveResult(id, points);
 
-            return View(points);
+            var responseResult = new FinalResultViewModel
+            {
+                Points = points,
+                Grade = points / 5 + 2
+            };
+
+            return View(responseResult);
         }
 
         private void SaveResult(int testID, double points)

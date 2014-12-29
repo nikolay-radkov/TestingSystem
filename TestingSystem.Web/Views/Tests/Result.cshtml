@@ -1,4 +1,4 @@
-﻿@model double
+﻿@model TestingSystem.Web.Models.FinalResultViewModel
 @{
     ViewBag.Title = "Резултат";
 }
@@ -8,27 +8,27 @@
             <div class="row">
                 <h1 class="glyphicon glyphicon-download bhoechie-header bhoechie-icon"></h1>
                 <br />
-                <h2 class="bhoechie-header">Точки: @string.Format("{0:0.00}", Model)</h2>
+                <h2 class="bhoechie-header">Точки: @string.Format("{0:0.00}", Model.Points)</h2>
             </div>
             <hr />
             <div class="row">
                 <h2 class="bhoechie-header">
                     Оценка:
-                    @{var grade = Model / 5 + 2;}
-                    @string.Format("{0:0.00}", grade)
-                    @if (5.5 <= grade)
+                 
+                    @string.Format("{0:0.00}", Model.Grade)
+                    @if (5.5 <= Model.Grade)
                     {
                         <strong>Отличен</strong>
                     }
-                    else if (4.5 <= grade && grade < 5.5)
+                    else if (4.5 <= Model.Grade && Model.Grade < 5.5)
                     {
                         <strong>Много добър</strong>
                     }
-                    else if (3.5 <= grade && grade < 4.5)
+                    else if (3.5 <= Model.Grade && Model.Grade < 4.5)
                     {
                         <strong>Добър</strong>
                     }
-                    else if (2.5 <= grade && grade < 3.5)
+                    else if (2.5 <= Model.Grade && Model.Grade < 3.5)
                     {
                         <strong>Среден</strong>
                     }

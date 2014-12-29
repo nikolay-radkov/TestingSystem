@@ -261,6 +261,7 @@
     <Compile Include="InputModels\AnswerBindingModel.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AnswerViewModel.cs" />
+    <Compile Include="Models\FinalResultViewModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\QuestionViewModel.cs" />
     <Compile Include="Models\ResultViewModel.cs" />

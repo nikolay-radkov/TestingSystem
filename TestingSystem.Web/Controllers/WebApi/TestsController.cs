@@ -110,7 +110,13 @@
 
             this.SaveResult(id, points);
 
-            return Ok(points);
+            var responseResult = new FinalResultViewModel
+            {
+                Points = points,
+                Grade = points / 5 + 2
+            };
+
+            return Ok(responseResult);
         }
 
         private void SaveResult(int testID, double points)
