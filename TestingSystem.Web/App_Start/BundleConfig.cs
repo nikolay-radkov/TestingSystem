@@ -20,7 +20,7 @@ namespace TestingSystem.Web
         private static void RegisterStylesBundles(BundleCollection bundles)
         {
             bundles.Add(new StyleBundle("~/Content/css").Include(
-                   "~/Content/bootstrap.css"));
+                   "~/Content/bootstrap-theme.min.css"));
 
             //bundles.Add(new StyleBundle("~/Content/kendo/styles").Include(
             //            "~/Content/kendo/kendo.common.min.css",

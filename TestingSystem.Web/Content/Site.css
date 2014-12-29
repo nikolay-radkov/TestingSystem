@@ -187,6 +187,11 @@ div.bhoechie-tab-container {
     color:#55518a;
 }
 
+.bhoechie-inverse {
+    margin-top: 0;
+    color:#FFF;
+}
+
 .bhoechie-icon {
     font-size: 12em;
 }

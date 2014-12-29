@@ -77,6 +77,7 @@ namespace TestingSystem.Web.Controllers
 
         [HttpPost]
         [Authorize]
+        [ValidateAntiForgeryToken]
         public ActionResult Result(int id, AnswerBindingModel results)
         {
              var points = 0.0;

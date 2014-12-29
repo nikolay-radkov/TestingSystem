@@ -9,7 +9,7 @@
 <div class="container">
     <div class="row vertical-offset-100">
         <div class="col-md-4 col-md-offset-4">
-            <div class="panel panel-default">
+            <div class="panel panel-primary">
                 <div class="panel-heading">
                     <div class="row-fluid user-row">
                         <img src="~/Images/icon.png" class="img-responsive" alt="Conxole Admin" />
@@ -26,8 +26,8 @@
                             <input class="form-control" placeholder="Username" id="username" name="UserName" type="text">
                             <input class="form-control" placeholder="Password" id="password" name="Password" type="password">
                             <br />
-                            <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login »">
-                            @Html.ActionLink("Register", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-lg btn-success btn-block" })
+                            <input class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Вход">
+                            @Html.ActionLink("Регистрация", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "btn btn-lg btn-success btn-block" })
 
                         </fieldset>
                     }
