@@ -307,6 +307,8 @@
     <Content Include="Areas\Administration\Views\web.config" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Images\background.jpg" />
+    <Content Include="Images\icon.png" />
+    <Content Include="Images\right-turquoise%402x.png" />
     <Content Include="Images\tick.ico" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

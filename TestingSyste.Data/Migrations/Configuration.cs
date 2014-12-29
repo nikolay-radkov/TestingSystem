@@ -135,13 +135,13 @@ namespace TestingSystem.Data.Migrations
 
             var answer1 = new Answer()
             {
-                Text = "Високопроизводително компютърни сгради",
+                Text = "Високопроизводителни компютърни сгради",
                 IsCorrect = false
             };
 
             var answer2 = new Answer()
             {
-                Text = "Високопроизводително компютърни системи",
+                Text = "Високопроизводителни компютърни системи",
                 IsCorrect = true
             };
 
