@@ -77,31 +77,34 @@
         [Authorize]
         public IHttpActionResult Result(int id, AnswerBindingModel results)
         {
-            var userAnswers = results.Answers.Split(',');
-
-            var test = this.Data.Tests.GetById(id);
-
             var points = 0.0;
 
-            foreach (var userAnswer in userAnswers)
+            if (results.Answers != null)
             {
-                var currentAnswer = this.Data.Answers.GetById(int.Parse(userAnswer));
-                
-                var questionCorrectAnswers = 0;
+                var userAnswers = results.Answers.Split(',');
 
-                if (this.previousQuestions.ContainsKey(currentAnswer.QuestionID))
-                {
-                    questionCorrectAnswers = this.previousQuestions[currentAnswer.QuestionID];
-                }
-                else
-                {
-                    questionCorrectAnswers = this.Data.Questions.GetById(currentAnswer.QuestionID).CorrectAnswersCount;
-                    this.previousQuestions[currentAnswer.QuestionID] = questionCorrectAnswers;
-                }
+                var test = this.Data.Tests.GetById(id);
 
-                if (currentAnswer.IsCorrect)
+                foreach (var userAnswer in userAnswers)
                 {
-                    points += 1.0 / questionCorrectAnswers;
+                    var currentAnswer = this.Data.Answers.GetById(int.Parse(userAnswer));
+
+                    var questionCorrectAnswers = 0;
+
+                    if (this.previousQuestions.ContainsKey(currentAnswer.QuestionID))
+                    {
+                        questionCorrectAnswers = this.previousQuestions[currentAnswer.QuestionID];
+                    }
+                    else
+                    {
+                        questionCorrectAnswers = this.Data.Questions.GetById(currentAnswer.QuestionID).CorrectAnswersCount;
+                        this.previousQuestions[currentAnswer.QuestionID] = questionCorrectAnswers;
+                    }
+
+                    if (currentAnswer.IsCorrect)
+                    {
+                        points += 1.0 / questionCorrectAnswers;
+                    }
                 }
             }
 

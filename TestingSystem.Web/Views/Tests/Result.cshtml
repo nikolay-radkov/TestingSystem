@@ -3,5 +3,39 @@
     ViewBag.Title = "Result";
 }
 
-<h2>Result: @Model</h2>
+<div class="row">
+    <div class="col-md-5">
+        <h2>Points: @Model</h2>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-5">
+        <h2>
+            Grade:
+            @{var grade = Model / 5 + 2;}
+            @grade
+            @if (5.5 < grade)
+            {
+                <strong>Excellent</strong>
+            }
+            else if (4.5 < grade && grade < 5.5)
+            {
+                <strong>Very good</strong>
+            }
+            else if (3.5 < grade && grade < 4.5)
+            {
+                <strong>Good</strong>
+            }
+            else if (2.5 < grade && grade < 3.5)
+            {
+                <strong>Average</strong>
+            }
+            else
+            {
+                <strong>Poor</strong>
+            }
+        </h2>
+    </div>
+</div>
+
 
