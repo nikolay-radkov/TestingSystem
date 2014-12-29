@@ -50,8 +50,18 @@ namespace TestingSystem.Web.Controllers
 
         [HttpGet]
         [Authorize]
+        [OutputCacheAttribute(VaryByParam = "*", Duration = 0, NoStore = true)]
         public ActionResult Questions(int id)
         {
+            if (Session["Visited"] != null)
+            {
+                Session["Visited"] = null;
+                return RedirectToAction("Index", "Tests", new { area = "" });
+            }
+            else
+            {
+                Session["Visited"] = "True";
+            }
             //TODO: Chech if is authorize
             var questions = this.Data
                                 .Questions

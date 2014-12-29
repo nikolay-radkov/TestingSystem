@@ -1,9 +1,4 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
-}
-
-/* Set padding to keep content from hitting the edges */
+﻿/* Set padding to keep content from hitting the edges */
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
@@ -20,6 +15,8 @@
 body {
     background-color: #444;
     background: url(http://s18.postimg.org/l7yq0ir3t/pick8_1.jpg);
+        padding-top: 50px;
+    padding-bottom: 20px;
 }
 
 .form-signin input[type="text"] {
@@ -179,6 +176,15 @@ div.bhoechie-tab-container {
     background-clip: padding-box;
     opacity: 0.97;
     filter: alpha(opacity=97);
+}
+
+.bhoechie-header {
+    margin-top: 0;
+    color:#55518a;
+}
+
+.bhoechie-icon {
+    font-size: 12em;
 }
 
 div.bhoechie-tab-menu {

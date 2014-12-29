@@ -29,7 +29,7 @@
                     @foreach (var question in Model)
                     {
                         <div class="bhoechie-tab-content">
-                            <h2 style="margin-top: 0;color:#55518a">@question.Text</h2>
+                            <h2 class="bhoechie-header">@question.Text</h2>
                             <hr />
                             @foreach (var answer in question.Answers)
                             {
@@ -54,7 +54,7 @@
                     }
                     <!-- finish section -->
                     <div class="bhoechie-tab-content text-center">
-                        <h1 class="glyphicon glyphicon-upload" style="font-size:12em;color:#55518a"></h1>
+                        <h1 class="glyphicon glyphicon-upload bhoechie-header bhoechie-icon"></h1>
                         <br />
                         <h2>Are you sure you want to complete the test?</h2>
                         <br />
