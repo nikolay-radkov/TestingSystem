@@ -14,7 +14,7 @@
 /* HOME */
 body {
     background-color: #444;
-    background: url(http://s18.postimg.org/l7yq0ir3t/pick8_1.jpg);
+    background: url(../Images/background.jpg);
         padding-top: 50px;
     padding-bottom: 20px;
 }
@@ -44,6 +44,10 @@ body {
 
 .vertical-offset-100 {
     padding-top: 100px;
+}
+
+.vertical-offset-15 {
+    padding-top: 15px;
 }
 
 .img-responsive {
@@ -256,8 +260,9 @@ a.answered {
 
 div.timer-fixed {
     position: fixed;
-    right: 0;
-    font-size: 20px;
+    right: 5px;
+    top: 60px;
+    font-size: 26px;
     z-index: 33;
 }
 
