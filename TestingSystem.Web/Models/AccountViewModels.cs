@@ -49,15 +49,15 @@ namespace TestingSystem.Web.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Username")]
+        [Display(Name = "Потребителско име")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Парола")]
         public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+        [Display(Name = "Запомни ме на този компютър?")]
         public bool RememberMe { get; set; }
     }
 
@@ -69,26 +69,26 @@ namespace TestingSystem.Web.Models
         public string Email { get; set; }
 
         [Required]
-        [Display(Name = "Full Name")]
+        [Display(Name = "Пълно име")]
         public string FullName { get; set; }
 
         [Required]
-        [Display(Name = "Username")]
+        [Display(Name = "Потребителско име")]
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "EGN")]
+        [Display(Name = "ЕГН")]
         public string EGN { get; set; }
 
         [Required]
-        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [StringLength(100, ErrorMessage = "{0} трябва да бъде {2} символа дълга.", MinimumLength = 6)]
         [DataType(DataType.Password)]
-        [Display(Name = "Password")]
+        [Display(Name = "Парола")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
-        [Display(Name = "Confirm password")]
-        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        [Display(Name = "Повторете паролата")]
+        [Compare("Password", ErrorMessage = "Паролата и потвърждението не съвпадат.")]
         public string ConfirmPassword { get; set; }
     }
 

@@ -1,6 +1,6 @@
 ﻿@model TestingSystem.Web.Models.IndexViewModel
 @{
-    ViewBag.Title = "Manage";
+    ViewBag.Title = "Акаунт";
 }
 <div class="vertical-offset-15">
     <div class="panel panel-info text-center center-x">
@@ -10,29 +10,29 @@
         <div class="panel-body">
             <hr />
             <p class="text-success">@ViewBag.StatusMessage</p>
-            <span>Password:</span>
+            <span>Парола:</span>
             <strong>
                 [
                 @if (Model.HasPassword)
                 {
-                    @Html.ActionLink("Change your password", "ChangePassword")
+                    @Html.ActionLink("Промяна на парола", "ChangePassword")
                 }
                 else
                 {
-                    @Html.ActionLink("Create", "SetPassword")
+                    @Html.ActionLink("Създаване на парола", "SetPassword")
                 }
                 ]
             </strong>
             <hr />
             <div class="panel-heading">
-                <h1 class="bhoechie-header">Results</h1>
+                <h1 class="bhoechie-header">Резултати</h1>
             </div>
             <table class="table table-bordered table-striped">
                 <thead>
                     <tr>
-                        <th class="text-center">Course Name</th>
-                        <th class="text-center">Test Name</th>
-                        <th class="text-center">Points</th>
+                        <th class="text-center">Курс</th>
+                        <th class="text-center">Тест</th>
+                        <th class="text-center">Точки</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -41,7 +41,7 @@
                         <tr>
                             <td>@result.CourseName</td>
                             <td>@result.TestName</td>
-                            <td>@string.Format("{0:0.00} / 20.00", result.Points)</td>
+                            <td>@string.Format("{0:0.00} от 20.00", result.Points)</td>
                         </tr>
                     }
                 </tbody>
