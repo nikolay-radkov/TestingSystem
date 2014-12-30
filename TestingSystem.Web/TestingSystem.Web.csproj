@@ -221,7 +221,9 @@
     <Compile Include="Areas\Administration\Controllers\StudentsController.cs" />
     <Compile Include="Areas\Administration\Controllers\TestsController.cs" />
     <Compile Include="Areas\Administration\InputModels\AnswerBindingModel.cs" />
+    <Compile Include="Areas\Administration\InputModels\QuestionBindingModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\AnswerViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\QuestionViewModel.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />

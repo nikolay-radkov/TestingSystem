@@ -3,7 +3,6 @@
     ViewBag.Title = "Изтриване на отговор";
 }
 
-
 <div class="vertical-offset-15">
     <div class="panel panel-primary text-center center-x">
         <div class="panel-heading">
@@ -17,27 +16,21 @@
                     <dt>
                         @Html.DisplayNameFor(model => model.QuestionText)
                     </dt>
-
                     <dd>
                         @Html.DisplayFor(model => model.QuestionText)
                     </dd>
-
                     <dt>
                         @Html.DisplayNameFor(model => model.Text)
                     </dt>
-
                     <dd>
                         @Html.DisplayFor(model => model.Text)
                     </dd>
-
                     <dt>
                         @Html.DisplayNameFor(model => model.IsCorrect)
                     </dt>
-
                     <dd>
                         @Html.DisplayFor(model => model.IsCorrect)
                     </dd>
-
                 </dl>
 
                 @using (Html.BeginForm())

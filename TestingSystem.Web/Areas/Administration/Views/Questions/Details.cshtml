@@ -1,42 +1,48 @@
-﻿@model TestingSystem.Models.Question
+﻿@model TestingSystem.Web.Areas.Administration.ViewModels.QuestionViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Детайли за въпрос";
 }
 
-<h2>Details</h2>
+<div class="vertical-offset-15">
+    <div class="panel panel-primary text-center center-x">
+        <div class="panel-heading">
+            <h1 class="bhoechie-inverse">@ViewBag.Title</h1>
+        </div>
+        <div class="panel-body">
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.TestName)
+                    </dt>
 
-<div>
-    <h4>Question</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Test.Name)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.TestName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Test.Name)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Text)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Text)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Text)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.CorrectAnswersCount)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.CorrectAnswersCount)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.CorrectAnswersCount)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.CorrectAnswersCount)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Промяна", "Edit", new { id = Model.ID }) |
+                @Html.ActionLink("Обратно към всички въпроси", "Index")
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

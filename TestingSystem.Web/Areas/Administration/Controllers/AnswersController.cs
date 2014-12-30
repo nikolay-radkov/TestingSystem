@@ -64,11 +64,13 @@
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Text,IsCorrect,QuestionID")] Answer answer)
+        public ActionResult Create(AnswerBindingModel answer)
         {
+            var result = AutoMapper.Mapper.Map<Answer>(answer);
+
             if (ModelState.IsValid)
             {
-                this.Data.Answers.Add(answer);
+                this.Data.Answers.Add(result);
                 this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -110,7 +112,9 @@
                 this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
+           
             ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text", answer.QuestionID);
+            
             return View(answer);
         }
 

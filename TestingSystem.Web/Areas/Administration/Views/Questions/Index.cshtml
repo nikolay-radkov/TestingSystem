@@ -1,45 +1,59 @@
-﻿@model IEnumerable<TestingSystem.Models.Question>
+﻿@model IEnumerable<TestingSystem.Web.Areas.Administration.ViewModels.QuestionViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Въпроси";
 }
 
-<h2>Index</h2>
+<div class="vertical-offset-15">
+    <div class="panel panel-primary text-center center-x">
+        <div class="panel-heading">
+            <h1 class="bhoechie-inverse">@ViewBag.Title</h1>
+        </div>
+        <div class="panel-body">
+            <p>
+                @Html.ActionLink("Създаване на нов въпрос", "Create")
+            </p>
+            <table class="table">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.TestName)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Text)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.CorrectAnswersCount)
+                    </th>
+                    <th class="text-center">Действия</th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Test.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Text)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CorrectAnswersCount)
-        </th>
-        <th></th>
-    </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TestName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Text)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CorrectAnswersCount)
+                        </td>
+                        <td>
+                            <a href="@Url.Action("Details", new { id = item.ID })">
+                                <img class="action-icon" src="~/Images/info.png" />
+                            </a>
+                            <a href="@Url.Action("Edit", new { id = item.ID })">
+                                <img class="action-icon" src="~/Images/edit.png" />
+                            </a>
+                            <a href="@Url.Action("Delete", new { id = item.ID })">
+                                <img class="action-icon" src="~/Images/delete.png" />
+                            </a>
+                        </td>
+                    </tr>
+                }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Test.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Text)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CorrectAnswersCount)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+            </table>
+        </div>
+    </div>
+</div>

@@ -8,19 +8,35 @@ using System.Web;
 using System.Web.Mvc;
 using TestingSystem.Data;
 using TestingSystem.Models;
+using TestingSystem.Web.Areas.Administration.ViewModels;
+using TestingSystem.Web.Controllers.Base;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using TestingSystem.Web.Areas.Administration.InputModels;
 
 namespace TestingSystem.Web.Areas.Administration.Controllers
 {
     [Authorize(Roles = "admin")]
-    public class QuestionsController : Controller
+    public class QuestionsController : BaseController
     {
-        private TestingSystemDbContext db = new TestingSystemDbContext();
+
+        public QuestionsController(ITestingSystemData data)
+            : base(data)
+        {
+        }
 
         // GET: Administration/Questions
         public ActionResult Index()
         {
-            var questions = db.Questions.Include(q => q.Test);
-            return View(questions.ToList());
+            var questions = this.Data
+                                    .Questions
+                                    .All()
+                                    .AsQueryable()
+                                    .Project()
+                                    .To<QuestionViewModel>()
+                                    .ToList();
+
+            return View(questions);
         }
 
         // GET: Administration/Questions/Details/5
@@ -30,18 +46,23 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Find(id);
+
+            var question = this.Data.Questions.GetById(id);
+            
             if (question == null)
             {
                 return HttpNotFound();
             }
-            return View(question);
+
+            var result = AutoMapper.Mapper.Map<QuestionViewModel>(question);
+
+            return View(result);
         }
 
         // GET: Administration/Questions/Create
         public ActionResult Create()
         {
-            ViewBag.TestID = new SelectList(db.Tests, "ID", "Name");
+            ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name");
             return View();
         }
 
@@ -50,16 +71,18 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Text,CorrectAnswersCount,TestID")] Question question)
+        public ActionResult Create(QuestionBindingModel question)
         {
+            var result = AutoMapper.Mapper.Map<Question>(question);
+
             if (ModelState.IsValid)
             {
-                db.Questions.Add(question);
-                db.SaveChanges();
+                this.Data.Questions.Add(result);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.TestID = new SelectList(db.Tests, "ID", "Name", question.TestID);
+            ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name", question.TestID);
             return View(question);
         }
 
@@ -70,29 +93,35 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Find(id);
+
+            var question = this.Data.Questions.GetById(id);
+            
             if (question == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.TestID = new SelectList(db.Tests, "ID", "Name", question.TestID);
-            return View(question);
+
+            var result = AutoMapper.Mapper.Map<QuestionBindingModel>(question);
+
+            ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name", question.TestID);
+            
+            return View(result);
         }
 
         // POST: Administration/Questions/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Text,CorrectAnswersCount,TestID")] Question question)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(question).State = EntityState.Modified;
-                db.SaveChanges();
+                this.Data.Questions.Update(question);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.TestID = new SelectList(db.Tests, "ID", "Name", question.TestID);
+
+            ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name", question.TestID);
+           
             return View(question);
         }
 
@@ -103,12 +132,17 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Question question = db.Questions.Find(id);
+
+            var question = this.Data.Questions.GetById(id);
+            
             if (question == null)
             {
                 return HttpNotFound();
             }
-            return View(question);
+
+            var result = AutoMapper.Mapper.Map<QuestionViewModel>(question);
+
+            return View(result);
         }
 
         // POST: Administration/Questions/Delete/5
@@ -116,9 +150,9 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Question question = db.Questions.Find(id);
-            db.Questions.Remove(question);
-            db.SaveChanges();
+            var question = this.Data.Questions.GetById(id);
+            this.Data.Questions.Delete(question);
+            this.Data.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -126,7 +160,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.Data.Dispose();
             }
             base.Dispose(disposing);
         }
