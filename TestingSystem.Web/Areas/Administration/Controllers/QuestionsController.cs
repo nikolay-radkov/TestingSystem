@@ -111,11 +111,13 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         // POST: Administration/Questions/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Text,CorrectAnswersCount,TestID")] Question question)
+        public ActionResult Edit(QuestionBindingModel question)
         {
+            var result = AutoMapper.Mapper.Map<Question>(question);
+
             if (ModelState.IsValid)
             {
-                this.Data.Questions.Update(question);
+                this.Data.Questions.Update(result);
                 this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }

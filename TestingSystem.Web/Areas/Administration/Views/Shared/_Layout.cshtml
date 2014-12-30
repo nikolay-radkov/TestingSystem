@@ -1,6 +1,9 @@
 ﻿@{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section moment{
+    @RenderSection("moment", required: false)
+}
 
 @section styles{
     @*@Styles.Render("~/Content/kendo/styles")*@

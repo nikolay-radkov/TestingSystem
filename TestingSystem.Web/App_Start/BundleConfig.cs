@@ -27,6 +27,9 @@ namespace TestingSystem.Web
             //            "~/Content/kendo/kendo.common-bootstrap.min.css",
             //            "~/Content/kendo/kendo.silver.min.css"));
 
+            bundles.Add(new StyleBundle("~/Content/datetimepicker").Include(
+                "~/Content/bootstrap-datetimepicker.min.css"));
+
             bundles.Add(new StyleBundle("~/Content/custom").Include(
                     "~/Content/site.css"));
         }
@@ -39,6 +42,13 @@ namespace TestingSystem.Web
 
             //bundles.Add(new ScriptBundle("~/bundles/jquery")
             //    .Include("~/Scripts/kendo/jquery.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/datetimepicker")
+                .Include("~/Scripts/bootstrap-datetimepicker.min.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/moment")
+              .Include("~/Scripts/moment.min.js"));
+
 
             bundles.Add(new ScriptBundle("~/bundles/jquery").Include(
                   "~/Scripts/jquery-{version}.js"));

@@ -104,11 +104,13 @@
         // POST: Administration/Answers/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Text,IsCorrect,QuestionID")] Answer answer)
+        public ActionResult Edit(AnswerBindingModel answer)
         {
+            var result = AutoMapper.Mapper.Map<Answer>(answer);
+
             if (ModelState.IsValid)
             {
-                this.Data.Answers.Update(answer);
+                this.Data.Answers.Update(result);
                 this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
