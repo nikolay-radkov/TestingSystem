@@ -285,3 +285,8 @@ div.timer-fixed {
     width: 150px;
     height: 150px;
 }
+
+img.action-icon {
+    width: 25px;
+    height: 25px;
+}

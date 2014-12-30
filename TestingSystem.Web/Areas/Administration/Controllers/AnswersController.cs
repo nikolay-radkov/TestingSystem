@@ -1,26 +1,35 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using TestingSystem.Data;
-using TestingSystem.Models;
-
-namespace TestingSystem.Web.Areas.Administration.Controllers
+﻿namespace TestingSystem.Web.Areas.Administration.Controllers
 {
+    using AutoMapper.QueryableExtensions;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+    using TestingSystem.Data;
+    using TestingSystem.Models;
+    using TestingSystem.Web.Areas.Administration.InputModels;
+    using TestingSystem.Web.Areas.Administration.ViewModels;
+    using TestingSystem.Web.Controllers.Base;
+
     [Authorize(Roles = "admin")]
-    public class AnswersController : Controller
+    public class AnswersController : BaseController
     {
-        private TestingSystemDbContext db = new TestingSystemDbContext();
+        public AnswersController(ITestingSystemData data)
+            : base (data)
+        {
+        }
 
         // GET: Administration/Answers
         public ActionResult Index()
         {
-            var answers = db.Answers.Include(a => a.Question);
-            return View(answers.ToList());
+            var answers = this.Data
+                            .Answers
+                            .All()
+                            .AsQueryable()
+                            .Project()
+                            .To<AnswerViewModel>()
+                            .ToList();
+
+            return View(answers);
         }
 
         // GET: Administration/Answers/Details/5
@@ -31,18 +40,22 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            Answer answer = db.Answers.Find(id);
+            var answer = this.Data.Answers.GetById(id);
+
             if (answer == null)
             {
                 return HttpNotFound();
             }
-            return View(answer);
+
+            var result = AutoMapper.Mapper.Map<AnswerViewModel>(answer);
+
+            return View(result);
         }
 
         // GET: Administration/Answers/Create
         public ActionResult Create()
         {
-            ViewBag.QuestionID = new SelectList(db.Questions, "ID", "Text");
+            ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text");
             return View();
         }
 
@@ -55,12 +68,12 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Answers.Add(answer);
-                db.SaveChanges();
+                this.Data.Answers.Add(answer);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.QuestionID = new SelectList(db.Questions, "ID", "Text", answer.QuestionID);
+            ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text", answer.QuestionID);
             return View(answer);
         }
 
@@ -71,29 +84,33 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Answer answer = db.Answers.Find(id);
+
+            var answer = this.Data.Answers.GetById(id);
+
             if (answer == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.QuestionID = new SelectList(db.Questions, "ID", "Text", answer.QuestionID);
-            return View(answer);
+
+            var result = AutoMapper.Mapper.Map<AnswerBindingModel>(answer);
+
+            ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text", result.QuestionID);
+
+            return View(result);
         }
 
         // POST: Administration/Answers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "ID,Text,IsCorrect,QuestionID")] Answer answer)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(answer).State = EntityState.Modified;
-                db.SaveChanges();
+                this.Data.Answers.Update(answer);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.QuestionID = new SelectList(db.Questions, "ID", "Text", answer.QuestionID);
+            ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text", answer.QuestionID);
             return View(answer);
         }
 
@@ -104,12 +121,17 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Answer answer = db.Answers.Find(id);
+
+            var answer = this.Data.Answers.GetById(id);
+
             if (answer == null)
             {
                 return HttpNotFound();
             }
-            return View(answer);
+
+            var result = AutoMapper.Mapper.Map<AnswerViewModel>(answer);
+
+            return View(result);
         }
 
         // POST: Administration/Answers/Delete/5
@@ -117,9 +139,9 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Answer answer = db.Answers.Find(id);
-            db.Answers.Remove(answer);
-            db.SaveChanges();
+            var answer = this.Data.Answers.GetById(id);
+            this.Data.Answers.Delete(answer);
+            this.Data.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -127,8 +149,9 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.Data.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

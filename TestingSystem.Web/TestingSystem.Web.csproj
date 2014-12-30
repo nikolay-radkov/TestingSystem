@@ -220,6 +220,8 @@
     <Compile Include="Areas\Administration\Controllers\SpecialtiesController.cs" />
     <Compile Include="Areas\Administration\Controllers\StudentsController.cs" />
     <Compile Include="Areas\Administration\Controllers\TestsController.cs" />
+    <Compile Include="Areas\Administration\InputModels\AnswerBindingModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\AnswerViewModel.cs" />
     <Compile Include="Areas\HelpPage\ApiDescriptionExtensions.cs" />
     <Compile Include="Areas\HelpPage\App_Start\HelpPageConfig.cs" />
     <Compile Include="Areas\HelpPage\Controllers\HelpController.cs" />
@@ -352,7 +354,10 @@
     <Content Include="Areas\Administration\Views\Courses\Index.cshtml" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
     <Content Include="Images\background.jpg" />
+    <Content Include="Images\delete.png" />
+    <Content Include="Images\edit.png" />
     <Content Include="Images\icon.png" />
+    <Content Include="Images\info.png" />
     <Content Include="Images\right-turquoise%402x.png" />
     <Content Include="Images\tick.ico" />
     <Content Include="Scripts\bootstrap.js" />
@@ -409,7 +414,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Areas\Administration\Models\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
