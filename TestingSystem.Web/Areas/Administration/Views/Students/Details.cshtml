@@ -1,146 +1,80 @@
-﻿@model TestingSystem.Models.Student
+﻿@model TestingSystem.Web.Areas.Administration.ViewModels.StudentViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Детайли за студент";
 }
 
-<h2>Details</h2>
+<div class="vertical-offset-15">
+    <div class="panel panel-primary text-center center-x">
+        <div class="panel-heading">
+            <h1 class="bhoechie-inverse">@ViewBag.Title</h1>
+        </div>
+        <div class="panel-body">
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.UserName)
+                    </dt>
 
-<div>
-    <h4>Student</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Specialty.Name)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.UserName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Specialty.Name)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FullName)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FullName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FullName)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SpecialtyName)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EGN)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SpecialtyName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EGN)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Semester)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FacultyNumber)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Semester)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.FacultyNumber)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.FacultyNumber)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Semester)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.FacultyNumber)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Semester)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.EGN)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.EGN)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Email)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.EmailConfirmed)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Email)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.EmailConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PasswordHash)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PasswordHash)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SecurityStamp)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SecurityStamp)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumber)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumber)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PhoneNumberConfirmed)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PhoneNumberConfirmed)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TwoFactorEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TwoFactorEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEndDateUtc)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEndDateUtc)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.LockoutEnabled)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LockoutEnabled)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.AccessFailedCount)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.AccessFailedCount)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.UserName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserName)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Промяна", "Edit", new { id = Model.Id }) |
+                @Html.ActionLink("Обратно към всички студенти", "Index")
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
