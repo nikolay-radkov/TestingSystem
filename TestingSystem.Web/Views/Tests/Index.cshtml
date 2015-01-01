@@ -1,37 +1,53 @@
 ﻿@model  ICollection<TestingSystem.Web.Models.TestViewModel>
 @{
-    ViewBag.Title = "Tests";
+    ViewBag.Title = "Тестове";
 }
 <div class="container">
     <div class="row">
-        @foreach (var test in Model)
+        @if (Model.Count == 0)
         {
-
-            <a href="@Url.Action("Questions", "Tests",  routeValues: new {id = test.ID })">
-                <div class="col-lg-3 col-sm-5 col-md-4 col-xs-6">
-                    <div class="offer offer-radius offer-info">
-                        <div class="shape">
-                            <div class="shape-text">
-                                Test
-                            </div>
-                        </div>
-                        <div class="offer-content">
-                            <h3 class="lead">
-                                @test.Name
-                            </h3>
-                            <p>
-                                @test.CourseName
-                                <hr />
-                                Active
-                                <br />
-                                From: @test.StartDate
-                                <br />
-                                To: @test.EndDate
-                            </p>
-                        </div>
+            <div class="vertical-offset-15">
+                <div class="panel panel-primary text-center center-x">
+                    <div class="panel-heading">
+                        <h1 class="bhoechie-inverse">@ViewBag.Title</h1>
+                    </div>
+                    <div class="panel-body">
+                        <h1>В момент няма активни тестове за Вашата специалност!</h1>
                     </div>
                 </div>
-            </a>
+            </div>
+        }
+        else
+        {
+            foreach (var test in Model)
+            {
+
+                <a href="@Url.Action("Questions", "Tests",  routeValues: new {id = test.ID })">
+                    <div class="col-lg-3 col-sm-5 col-md-4 col-xs-6">
+                        <div class="offer offer-radius offer-info">
+                            <div class="shape">
+                                <div class="shape-text">
+                                    Тест
+                                </div>
+                            </div>
+                            <div class="offer-content">
+                                <h3 class="lead">
+                                    @test.Name
+                                </h3>
+                                <p>
+                                    @test.CourseName
+                                    <hr />
+                                    Активен
+                                    <br />
+                                    От: @test.StartDate
+                                    <br />
+                                    До: @test.EndDate
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            }
         }
     </div>
 </div>

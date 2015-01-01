@@ -8,18 +8,34 @@ using System.Web;
 using System.Web.Mvc;
 using TestingSystem.Data;
 using TestingSystem.Models;
+using TestingSystem.Web.Areas.Administration.ViewModels;
+using TestingSystem.Web.Controllers.Base;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using TestingSystem.Web.Areas.Administration.InputModels;
 
 namespace TestingSystem.Web.Areas.Administration.Controllers
 {
     [Authorize(Roles = "admin")]
-    public class SpecialtiesController : Controller
+    public class SpecialtiesController : BaseController
     {
-        private TestingSystemDbContext db = new TestingSystemDbContext();
+        public SpecialtiesController(ITestingSystemData data)
+            : base (data)
+        {
+        }
 
         // GET: Administration/Specialties
         public ActionResult Index()
         {
-            return View(db.Specialties.ToList());
+            var specialties = this.Data
+                           .Specialties
+                           .All()
+                           .AsQueryable()
+                           .Project()
+                           .To<SpecialtyViewModel>()
+                           .ToList();
+
+            return View(specialties);
         }
 
         // GET: Administration/Specialties/Details/5
@@ -29,12 +45,17 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Specialty specialty = db.Specialties.Find(id);
+
+            var specialty = this.Data.Specialties.GetById(id);
+            
             if (specialty == null)
             {
                 return HttpNotFound();
             }
-            return View(specialty);
+
+            var result = AutoMapper.Mapper.Map<SpecialtyViewModel>(specialty);
+
+            return View(result);
         }
 
         // GET: Administration/Specialties/Create
@@ -48,12 +69,14 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name")] Specialty specialty)
+        public ActionResult Create(SpecialtyBindingModel specialty)
         {
             if (ModelState.IsValid)
             {
-                db.Specialties.Add(specialty);
-                db.SaveChanges();
+                var result = AutoMapper.Mapper.Map<Specialty>(specialty);
+
+                this.Data.Specialties.Add(result);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
 
@@ -67,27 +90,33 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Specialty specialty = db.Specialties.Find(id);
+
+            var specialty = this.Data.Specialties.GetById(id);
+           
             if (specialty == null)
             {
                 return HttpNotFound();
             }
-            return View(specialty);
+
+            var result = AutoMapper.Mapper.Map<SpecialtyBindingModel>(specialty);
+
+            return View(result);
         }
 
         // POST: Administration/Specialties/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name")] Specialty specialty)
+        public ActionResult Edit(SpecialtyBindingModel specialty)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(specialty).State = EntityState.Modified;
-                db.SaveChanges();
+                var result = AutoMapper.Mapper.Map<Specialty>(specialty);
+
+                this.Data.Specialties.Update(result);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(specialty);
         }
 
@@ -98,12 +127,17 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Specialty specialty = db.Specialties.Find(id);
+
+            var specialty = this.Data.Specialties.GetById(id);
+
             if (specialty == null)
             {
                 return HttpNotFound();
             }
-            return View(specialty);
+
+            var result = AutoMapper.Mapper.Map<SpecialtyViewModel>(specialty);
+
+            return View(result);
         }
 
         // POST: Administration/Specialties/Delete/5
@@ -111,9 +145,9 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Specialty specialty = db.Specialties.Find(id);
-            db.Specialties.Remove(specialty);
-            db.SaveChanges();
+            Specialty specialty = this.Data.Specialties.GetById(id);
+            this.Data.Specialties.Delete(specialty);
+            this.Data.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -121,7 +155,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.Data.Dispose();
             }
             base.Dispose(disposing);
         }

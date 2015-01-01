@@ -1,26 +1,32 @@
-﻿@model TestingSystem.Models.Specialty
+﻿@model TestingSystem.Web.Areas.Administration.ViewModels.SpecialtyViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Детайли за отговор";
 }
 
-<h2>Details</h2>
+<div class="vertical-offset-15">
+    <div class="panel panel-primary text-center center-x">
+        <div class="panel-heading">
+            <h1 class="bhoechie-inverse">@ViewBag.Title</h1>
+        </div>
+        <div class="panel-body">
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
 
-<div>
-    <h4>Specialty</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Промяна", "Edit", new { id = Model.ID }) |
+                @Html.ActionLink("Обратно към всички специалности", "Index")
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

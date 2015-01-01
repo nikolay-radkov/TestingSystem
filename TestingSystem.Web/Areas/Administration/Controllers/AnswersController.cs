@@ -65,11 +65,11 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AnswerBindingModel answer)
-        {
-            var result = AutoMapper.Mapper.Map<Answer>(answer);
-
+        {          
             if (ModelState.IsValid)
             {
+                var result = AutoMapper.Mapper.Map<Answer>(answer);
+
                 this.Data.Answers.Add(result);
                 this.Data.SaveChanges();
                 return RedirectToAction("Index");
@@ -106,10 +106,10 @@
         [ValidateAntiForgeryToken]
         public ActionResult Edit(AnswerBindingModel answer)
         {
-            var result = AutoMapper.Mapper.Map<Answer>(answer);
-
             if (ModelState.IsValid)
             {
+                var result = AutoMapper.Mapper.Map<Answer>(answer);
+
                 this.Data.Answers.Update(result);
                 this.Data.SaveChanges();
                 return RedirectToAction("Index");
