@@ -8,129 +8,38 @@ using System.Web;
 using System.Web.Mvc;
 using TestingSystem.Data;
 using TestingSystem.Models;
+using TestingSystem.Web.Controllers.Base;
+using AutoMapper.QueryableExtensions;
+using TestingSystem.Web.Areas.Administration.ViewModels;
 
 namespace TestingSystem.Web.Areas.Administration.Controllers
 {
     [Authorize(Roles = "admin")]
-    public class ResultsController : Controller
+    public class ResultsController : BaseController
     {
-        private TestingSystemDbContext db = new TestingSystemDbContext();
+        public ResultsController(ITestingSystemData data)
+            : base(data)
+        {
+        }
 
         // GET: Administration/Results
         public ActionResult Index()
         {
-            var results = db.Results.Include(r => r.Student).Include(r => r.Test);
-            return View(results.ToList());
-        }
+            var results = this.Data
+                                .Results
+                                .All()
+                                .Project()
+                                .To<ResultViewModel>()
+                                .ToList();
 
-        // GET: Administration/Results/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Result result = db.Results.Find(id);
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
-            return View(result);
-        }
-
-        // GET: Administration/Results/Create
-        public ActionResult Create()
-        {
-            ViewBag.StudentID = new SelectList(db.Users, "Id", "FullName");
-            ViewBag.TestID = new SelectList(db.Tests, "ID", "Name");
-            return View();
-        }
-
-        // POST: Administration/Results/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Points,StudentID,TestID")] Result result)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Results.Add(result);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.StudentID = new SelectList(db.Users, "Id", "FullName", result.StudentID);
-            ViewBag.TestID = new SelectList(db.Tests, "ID", "Name", result.TestID);
-            return View(result);
-        }
-
-        // GET: Administration/Results/Edit/5
-        public ActionResult Edit(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Result result = db.Results.Find(id);
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
-            ViewBag.StudentID = new SelectList(db.Users, "Id", "FullName", result.StudentID);
-            ViewBag.TestID = new SelectList(db.Tests, "ID", "Name", result.TestID);
-            return View(result);
-        }
-
-        // POST: Administration/Results/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Points,StudentID,TestID")] Result result)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(result).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.StudentID = new SelectList(db.Users, "Id", "FullName", result.StudentID);
-            ViewBag.TestID = new SelectList(db.Tests, "ID", "Name", result.TestID);
-            return View(result);
-        }
-
-        // GET: Administration/Results/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Result result = db.Results.Find(id);
-            if (result == null)
-            {
-                return HttpNotFound();
-            }
-            return View(result);
-        }
-
-        // POST: Administration/Results/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Result result = db.Results.Find(id);
-            db.Results.Remove(result);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            return View(results);
         }
 
         protected override void Dispose(bool disposing)
         {
             if (disposing)
             {
-                db.Dispose();
+                this.Data.Dispose();
             }
             base.Dispose(disposing);
         }

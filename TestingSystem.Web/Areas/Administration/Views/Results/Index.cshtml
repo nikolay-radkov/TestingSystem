@@ -1,45 +1,44 @@
-﻿@model IEnumerable<TestingSystem.Models.Result>
+﻿@model IEnumerable<TestingSystem.Web.Areas.Administration.ViewModels.ResultViewModel>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Резултати";
 }
 
-<h2>Index</h2>
+<div class="vertical-offset-15">
+    <div class="panel panel-primary text-center center-x">
+        <div class="panel-heading">
+            <h1 class="bhoechie-inverse">@ViewBag.Title</h1>
+        </div>
+        <div class="panel-body">
+            <table class="table">
+                <tr>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.StudentFullName)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.TestName)
+                    </th>
+                    <th class="text-center">
+                        @Html.DisplayNameFor(model => model.Points)
+                    </th>
+                </tr>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Student.FullName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Test.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Points)
-        </th>
-        <th></th>
-    </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentFullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TestName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Points)
+                        </td>
+                    </tr>
+                }
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Test.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Points)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
-
-</table>
+            </table>
+        </div>
+    </div>
+</div>

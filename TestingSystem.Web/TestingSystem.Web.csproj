@@ -233,6 +233,7 @@
     <Compile Include="Areas\Administration\ViewModels\AnswerViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\CourseViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\QuestionViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\ResultViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\SpecialtyViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\StudentViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\TestViewModel.cs" />
@@ -342,10 +343,6 @@
     <Content Include="Areas\Administration\Views\Tests\Details.cshtml" />
     <Content Include="Areas\Administration\Views\Tests\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\Tests\Index.cshtml" />
-    <Content Include="Areas\Administration\Views\Results\Create.cshtml" />
-    <Content Include="Areas\Administration\Views\Results\Delete.cshtml" />
-    <Content Include="Areas\Administration\Views\Results\Details.cshtml" />
-    <Content Include="Areas\Administration\Views\Results\Edit.cshtml" />
     <Content Include="Areas\Administration\Views\Results\Index.cshtml" />
     <Content Include="Areas\Administration\Views\Students\Create.cshtml" />
     <Content Include="Areas\Administration\Views\Students\Delete.cshtml" />
