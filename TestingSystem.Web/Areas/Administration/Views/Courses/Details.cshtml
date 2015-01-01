@@ -1,42 +1,48 @@
-﻿@model TestingSystem.Models.Course
+﻿@model TestingSystem.Web.Areas.Administration.ViewModels.CourseViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Детайли за курс";
 }
 
-<h2>Details</h2>
+<div class="vertical-offset-15">
+    <div class="panel panel-primary text-center center-x">
+        <div class="panel-heading">
+            <h1 class="bhoechie-inverse">@ViewBag.Title</h1>
+        </div>
+        <div class="panel-body">
+            <div>
+                <hr />
+                <dl class="dl-horizontal">
+                    <dt>
+                        @Html.DisplayNameFor(model => model.SpecialtyName)
+                    </dt>
 
-<div>
-    <h4>Course</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Specialty.Name)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.SpecialtyName)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Specialty.Name)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Name)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Name)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Name)
-        </dd>
+                    <dt>
+                        @Html.DisplayNameFor(model => model.Semester)
+                    </dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Semester)
-        </dt>
+                    <dd>
+                        @Html.DisplayFor(model => model.Semester)
+                    </dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.Semester)
-        </dd>
-
-    </dl>
+                </dl>
+            </div>
+            <p>
+                @Html.ActionLink("Промяна", "Edit", new { id = Model.ID }) |
+                @Html.ActionLink("Обратно към всички курсове", "Index")
+            </p>
+        </div>
+    </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

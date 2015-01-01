@@ -8,19 +8,34 @@ using System.Web;
 using System.Web.Mvc;
 using TestingSystem.Data;
 using TestingSystem.Models;
+using TestingSystem.Web.Controllers.Base;
+using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using TestingSystem.Web.Areas.Administration.ViewModels;
+using TestingSystem.Web.Areas.Administration.InputModels;
 
 namespace TestingSystem.Web.Areas.Administration.Controllers
 {
     [Authorize(Roles = "admin")]
-    public class CoursesController : Controller
+    public class CoursesController : BaseController
     {
-        private TestingSystemDbContext db = new TestingSystemDbContext();
+        public CoursesController(ITestingSystemData data)
+            : base (data)
+        {
+        }
 
         // GET: Administration/Courses
         public ActionResult Index()
         {
-            var courses = db.Courses.Include(c => c.Specialty);
-            return View(courses.ToList());
+            var courses = this.Data
+                            .Courses
+                            .All()
+                            .AsQueryable()
+                            .Project()
+                            .To<CourseViewModel>()
+                            .ToList(); ;
+           
+            return View(courses);
         }
 
         // GET: Administration/Courses/Details/5
@@ -30,18 +45,23 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+
+            var course = this.Data.Courses.GetById(id);
+            
             if (course == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+
+            var result = AutoMapper.Mapper.Map<CourseViewModel>(course);
+
+            return View(result);
         }
 
         // GET: Administration/Courses/Create
         public ActionResult Create()
         {
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "Name");
+            ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name");
             return View();
         }
 
@@ -50,16 +70,18 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,Semester,SpecialtyID")] Course course)
+        public ActionResult Create(CourseBindingModel course)
         {
             if (ModelState.IsValid)
             {
-                db.Courses.Add(course);
-                db.SaveChanges();
+                var result = AutoMapper.Mapper.Map<Course>(course);
+
+                this.Data.Courses.Add(result);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "Name", course.SpecialtyID);
+            ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", course.SpecialtyID);
             return View(course);
         }
 
@@ -70,29 +92,35 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+
+            var course = this.Data.Courses.GetById(id);
+           
             if (course == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "Name", course.SpecialtyID);
-            return View(course);
+
+            var result = AutoMapper.Mapper.Map<CourseBindingModel>(course);
+
+            ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", course.SpecialtyID);
+         
+            return View(result);
         }
 
         // POST: Administration/Courses/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,Semester,SpecialtyID")] Course course)
+        public ActionResult Edit(CourseBindingModel course)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(course).State = EntityState.Modified;
-                db.SaveChanges();
+                var result = AutoMapper.Mapper.Map<Course>(course);
+
+                this.Data.Courses.Update(result);
+                this.Data.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.SpecialtyID = new SelectList(db.Specialties, "ID", "Name", course.SpecialtyID);
+            ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", course.SpecialtyID);
             return View(course);
         }
 
@@ -103,12 +131,17 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Course course = db.Courses.Find(id);
+
+            var course = this.Data.Courses.GetById(id);
+            
             if (course == null)
             {
                 return HttpNotFound();
             }
-            return View(course);
+
+            var result = AutoMapper.Mapper.Map<CourseViewModel>(course);
+
+            return View(result);
         }
 
         // POST: Administration/Courses/Delete/5
@@ -116,9 +149,9 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Course course = db.Courses.Find(id);
-            db.Courses.Remove(course);
-            db.SaveChanges();
+            Course course = this.Data.Courses.GetById(id);
+            this.Data.Courses.Delete(course);
+            this.Data.SaveChanges();
             return RedirectToAction("Index");
         }
 
@@ -126,7 +159,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
         {
             if (disposing)
             {
-                db.Dispose();
+                this.Data.Dispose();
             }
             base.Dispose(disposing);
         }

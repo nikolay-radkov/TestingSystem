@@ -224,10 +224,12 @@
     <Compile Include="Areas\Administration\Controllers\StudentsController.cs" />
     <Compile Include="Areas\Administration\Controllers\TestsController.cs" />
     <Compile Include="Areas\Administration\InputModels\AnswerBindingModel.cs" />
+    <Compile Include="Areas\Administration\InputModels\CourseBindingModel.cs" />
     <Compile Include="Areas\Administration\InputModels\QuestionBindingModel.cs" />
     <Compile Include="Areas\Administration\InputModels\SpecialtyBindingModel.cs" />
     <Compile Include="Areas\Administration\InputModels\TestBindingModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\AnswerViewModel.cs" />
+    <Compile Include="Areas\Administration\ViewModels\CourseViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\QuestionViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\SpecialtyViewModel.cs" />
     <Compile Include="Areas\Administration\ViewModels\TestViewModel.cs" />
