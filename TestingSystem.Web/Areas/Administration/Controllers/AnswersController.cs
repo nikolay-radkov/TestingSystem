@@ -1,9 +1,11 @@
 ﻿namespace TestingSystem.Web.Areas.Administration.Controllers
 {
-    using AutoMapper.QueryableExtensions;
     using System.Linq;
     using System.Net;
     using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
     using TestingSystem.Data;
     using TestingSystem.Models;
     using TestingSystem.Web.Areas.Administration.InputModels;
@@ -14,7 +16,7 @@
     public class AnswersController : BaseController
     {
         public AnswersController(ITestingSystemData data)
-            : base (data)
+            : base(data)
         {
         }
 
@@ -29,7 +31,7 @@
                             .To<AnswerViewModel>()
                             .ToList();
 
-            return View(answers);
+            return this.View(answers);
         }
 
         // GET: Administration/Answers/Details/5
@@ -44,19 +46,19 @@
 
             if (answer == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<AnswerViewModel>(answer);
 
-            return View(result);
+            return this.View(result);
         }
 
         // GET: Administration/Answers/Create
         public ActionResult Create()
         {
             ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text");
-            return View();
+            return this.View();
         }
 
         // POST: Administration/Answers/Create
@@ -65,18 +67,18 @@
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(AnswerBindingModel answer)
-        {          
+        {
             if (ModelState.IsValid)
             {
                 var result = AutoMapper.Mapper.Map<Answer>(answer);
 
                 this.Data.Answers.Add(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text", answer.QuestionID);
-            return View(answer);
+            return this.View(answer);
         }
 
         // GET: Administration/Answers/Edit/5
@@ -91,14 +93,14 @@
 
             if (answer == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<AnswerBindingModel>(answer);
 
             ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text", result.QuestionID);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Answers/Edit/5
@@ -112,12 +114,12 @@
 
                 this.Data.Answers.Update(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
-           
+
             ViewBag.QuestionID = new SelectList(this.Data.Questions.All(), "ID", "Text", answer.QuestionID);
-            
-            return View(answer);
+
+            return this.View(answer);
         }
 
         // GET: Administration/Answers/Delete/5
@@ -132,12 +134,12 @@
 
             if (answer == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<AnswerViewModel>(answer);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Answers/Delete/5
@@ -148,7 +150,7 @@
             var answer = this.Data.Answers.GetById(id);
             this.Data.Answers.Delete(answer);
             this.Data.SaveChanges();
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)

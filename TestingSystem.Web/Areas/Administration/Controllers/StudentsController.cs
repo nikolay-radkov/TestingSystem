@@ -1,29 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using TestingSystem.Data;
-using TestingSystem.Models;
-using TestingSystem.Web.Controllers.Base;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using TestingSystem.Web.Areas.Administration.ViewModels;
-using TestingSystem.Web.Areas.Administration.InputModels;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.AspNet.Identity;
-using System.Data.Entity.Validation;
-
-namespace TestingSystem.Web.Areas.Administration.Controllers
+﻿namespace TestingSystem.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+    
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.EntityFramework;
+  
+    using TestingSystem.Data;
+    using TestingSystem.Models;
+    using TestingSystem.Web.Areas.Administration.InputModels;
+    using TestingSystem.Web.Areas.Administration.ViewModels;
+    using TestingSystem.Web.Controllers.Base;
+
     [Authorize(Roles = "admin")]
     public class StudentsController : BaseController
     {
         public StudentsController(ITestingSystemData data)
-            : base (data)
+            : base(data)
         {
         }
 
@@ -38,7 +33,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
                             .To<StudentViewModel>()
                             .ToList();
 
-            return View(students);
+            return this.View(students);
         }
 
         // GET: Administration/Students/Details/5
@@ -50,27 +45,25 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             }
 
             var student = this.Data.Students.GetById(id);
-            
+
             if (student == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<StudentViewModel>(student);
 
-            return View(result);
+            return this.View(result);
         }
 
         // GET: Administration/Students/Create
         public ActionResult Create()
         {
             ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name");
-            return View();
+            return this.View();
         }
 
         // POST: Administration/Students/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(NewStudentBindingModel student)
@@ -81,46 +74,13 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
 
                 var userStore = new UserStore<Student>(this.Data.Context);
                 var userManager = new UserManager<Student>(userStore);
+                userManager.Create(result, student.Password);
 
-
-                try
-                {
-                    userManager.Create(result, student.Password);
-                
-                }
-                catch (DbEntityValidationException e)
-                {
-                    var p = e.EntityValidationErrors.FirstOrDefault().Entry;
-                    var q = e.EntityValidationErrors.FirstOrDefault().ValidationErrors;
-
-                }
-
-                return RedirectToAction("Index");
-                
-
-                //var result = await UserManager.CreateAsync(user, model.Password);
-                //if (result.Succeeded)
-                //{
-                //    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-
-                //    // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
-                //    // Send an email with this link
-                //    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                //    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                //    // await UserManager.SendEmailAsync(user.Id, "Confirm your account", "Please confirm your account by clicking <a href=\"" + callbackUrl + "\">here</a>");
-
-                    return RedirectToAction("Index");
-                //}
-       
-
-                //var result = AutoMapper.Mapper.Map<Student>(student);
-
-                //this.Data.Students.Add(result);
-                //this.Data.SaveChanges();
+                return this.RedirectToAction("Index");
             }
 
             ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", student.SpecialtyID);
-            return View(student);
+            return this.View(student);
         }
 
         // GET: Administration/Students/Edit/5
@@ -130,18 +90,18 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-           
+
             var student = this.Data.Students.GetById(id);
-            
+
             if (student == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<StudentBindingModel>(student);
 
             ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", student.SpecialtyID);
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Students/Edit/5
@@ -157,12 +117,12 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
 
                 this.Data.Students.Update(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", student.SpecialtyID);
-            
-            return View(student);
+
+            return this.View(student);
         }
 
         // GET: Administration/Students/Delete/5
@@ -174,15 +134,15 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             }
 
             var student = this.Data.Students.GetById(id);
-            
+
             if (student == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<StudentViewModel>(student);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Students/Delete/5
@@ -193,7 +153,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             var student = this.Data.Students.GetById(id);
             this.Data.Students.Delete(student);
             this.Data.SaveChanges();
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -202,6 +162,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 this.Data.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

@@ -1,8 +1,10 @@
 ﻿namespace TestingSystem.Web.Areas.Administration.ViewModels
 {
-    using AutoMapper;
     using System;
     using System.ComponentModel.DataAnnotations;
+
+    using AutoMapper;
+
     using TestingSystem.Models;
     using TestingSystem.Web.Infrastructure.Mapping;
 
@@ -25,7 +27,7 @@
         public void CreateMappings(IConfiguration configuration)
         {
             configuration.CreateMap<Test, TestViewModel>()
-                            .ForMember(tvm => tvm.CourseName, opt => opt.MapFrom(t =>t.Course.Name));
+                            .ForMember(tvm => tvm.CourseName, opt => opt.MapFrom(t => t.Course.Name));
         }
     }
 }

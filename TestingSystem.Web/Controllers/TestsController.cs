@@ -1,19 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using TestingSystem.Data;
-using TestingSystem.Web.Controllers.Base;
-using TestingSystem.Web.Models;
-using Microsoft.AspNet.Identity;
-using AutoMapper.QueryableExtensions;
-using TestingSystem.Web.InputModels;
-using TestingSystem.Models;
-using System.Net;
-
-namespace TestingSystem.Web.Controllers
+﻿namespace TestingSystem.Web.Controllers
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+    
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNet.Identity;
+    
+    using TestingSystem.Data;
+    using TestingSystem.Models;
+    using TestingSystem.Web.Controllers.Base;
+    using TestingSystem.Web.InputModels;
+    using TestingSystem.Web.Models;
+
     [Authorize]
     public class TestsController : BaseController
     {
@@ -45,9 +46,8 @@ namespace TestingSystem.Web.Controllers
                             .To<TestViewModel>()
                             .ToList();
 
-            return View(tests);
+            return this.View(tests);
         }
-
 
         [HttpGet]
         [Authorize]
@@ -59,16 +59,17 @@ namespace TestingSystem.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            if (Session["Visited"] != null)
+            if (this.Session["Visited"] != null)
             {
-                Session["Visited"] = null;
-                return RedirectToAction("Index", "Tests", new { area = "" });
+                this.Session["Visited"] = null;
+                return this.RedirectToAction("Index", "Tests", new { area = string.Empty });
             }
             else
             {
-                Session["Visited"] = "True";
+                this.Session["Visited"] = "True";
             }
-            //TODO: Chech if is authorize
+
+            // TODO: Chech if is authorize
             var questions = this.Data
                                 .Questions
                                 .All()
@@ -78,7 +79,7 @@ namespace TestingSystem.Web.Controllers
                                 .To<QuestionViewModel>()
                                 .ToList();
 
-            return View(questions);
+            return this.View(questions);
         }
 
         [HttpPost]
@@ -127,10 +128,10 @@ namespace TestingSystem.Web.Controllers
             var responseResult = new FinalResultViewModel
             {
                 Points = points,
-                Grade = points / 5 + 2
+                Grade = (points / 5) + 2
             };
 
-            return View(responseResult);
+            return this.View(responseResult);
         }
 
         private void SaveResult(int testID, double points)

@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using TestingSystem.Models;
-using TestingSystem.Web.Infrastructure.Mapping;
-
-namespace TestingSystem.Web.Models
+﻿namespace TestingSystem.Web.Models
 {
+    using System.Collections.Generic;
+    
+    using TestingSystem.Models;
+    using TestingSystem.Web.Infrastructure.Mapping;
+
     public class QuestionViewModel : IMapFrom<Question>
     {
         public int ID { get; set; }

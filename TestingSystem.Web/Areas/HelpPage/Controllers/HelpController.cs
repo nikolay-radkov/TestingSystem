@@ -1,11 +1,12 @@
-using System;
-using System.Web.Http;
-using System.Web.Mvc;
-using TestingSystem.Web.Areas.HelpPage.ModelDescriptions;
-using TestingSystem.Web.Areas.HelpPage.Models;
-
 namespace TestingSystem.Web.Areas.HelpPage.Controllers
 {
+    using System;
+    using System.Web.Http;
+    using System.Web.Mvc;
+
+    using TestingSystem.Web.Areas.HelpPage.ModelDescriptions;
+    using TestingSystem.Web.Areas.HelpPage.Models;
+
     /// <summary>
     /// The controller that will handle requests for the help page.
     /// </summary>

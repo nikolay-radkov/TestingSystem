@@ -1,13 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using TestingSystem.Models;
-using TestingSystem.Web.Infrastructure.Mapping;
-
-namespace TestingSystem.Web.Models
+﻿namespace TestingSystem.Web.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    using TestingSystem.Models;
+    using TestingSystem.Web.Infrastructure.Mapping;
+
     public class TestViewModel : IMapFrom<Test>, IHaveCustomMappings
     {
         public int ID { get; set; }

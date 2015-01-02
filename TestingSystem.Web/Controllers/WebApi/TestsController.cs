@@ -27,7 +27,6 @@
         public TestsController()
             : this(new TestingSystemData())
         {
-
         }
 
         // api/Tests/All
@@ -51,7 +50,7 @@
                             .To<TestViewModel>()
                             .ToList();
 
-            return Ok(tests);
+            return this.Ok(tests);
         }
 
         // api/Tests/Questions/5
@@ -61,10 +60,10 @@
         {
             if (id == null)
             {
-                return BadRequest();
+                return this.BadRequest();
             }
 
-            //TODO: Chech if is authorize
+            // TODO: Chech if is authorize
             var questions = this.Data
                                 .Questions
                                 .All()
@@ -74,7 +73,7 @@
                                 .To<QuestionViewModel>()
                                 .ToList();
 
-            return Ok(questions);
+            return this.Ok(questions);
         }
 
         // api/Tests/Result/5
@@ -84,7 +83,7 @@
         {
             if (id == null)
             {
-                return BadRequest();
+                return this.BadRequest();
             }
 
             var points = 0.0;
@@ -123,10 +122,10 @@
             var responseResult = new FinalResultViewModel
             {
                 Points = points,
-                Grade = points / 5 + 2
+                Grade = (points / 5) + 2
             };
 
-            return Ok(responseResult);
+            return this.Ok(responseResult);
         }
 
         private void SaveResult(int testID, double points)

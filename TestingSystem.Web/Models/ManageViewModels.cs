@@ -45,7 +45,7 @@
         [Display(Name = "Текуща парола")]
         public string OldPassword { get; set; }
 
-        [Required(ErrorMessage="{0} е задължително поле.")]
+        [Required(ErrorMessage = "{0} е задължително поле.")]
         [StringLength(100, ErrorMessage = "{0} трябва да е {2} символа дълга.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Нова парола")]

@@ -1,18 +1,19 @@
-﻿using System;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Web;
-using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using TestingSystem.Web.Models;
-using TestingSystem.Models;
-using TestingSystem.Data;
-using AutoMapper.QueryableExtensions;
-
-namespace TestingSystem.Web.Controllers
+﻿namespace TestingSystem.Web.Controllers
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+    using System.Web;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+    using Microsoft.AspNet.Identity;
+    using Microsoft.AspNet.Identity.Owin;
+    using Microsoft.Owin.Security;
+  
+    using TestingSystem.Data;
+    using TestingSystem.Models;
+    using TestingSystem.Web.Models;
+    
     [Authorize]
     public class ManageController : Controller
     {
@@ -26,19 +27,20 @@ namespace TestingSystem.Web.Controllers
         }
 
         private StudentManager _userManager;
+
         public StudentManager UserManager
         {
             get
             {
                 return _userManager ?? HttpContext.GetOwinContext().GetUserManager<StudentManager>();
             }
+
             private set
             {
                 _userManager = value;
             }
         }
 
-        //
         // GET: /Manage/Index
         public ActionResult Index(ManageMessageId? message)
         {
@@ -58,7 +60,7 @@ namespace TestingSystem.Web.Controllers
                 : message == ManageMessageId.Error ? "An error has occurred."
                 : message == ManageMessageId.AddPhoneSuccess ? "Your phone number was added."
                 : message == ManageMessageId.RemovePhoneSuccess ? "Your phone number was removed."
-                : "";
+                : string.Empty;
 
             var model = new IndexViewModel
             {
@@ -69,7 +71,6 @@ namespace TestingSystem.Web.Controllers
             return View(model);
         }
 
-        //
         // POST: /Manage/RemoveLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -84,12 +85,14 @@ namespace TestingSystem.Web.Controllers
                 {
                     await SignInAsync(user, isPersistent: false);
                 }
+
                 message = ManageMessageId.RemoveLoginSuccess;
             }
             else
             {
                 message = ManageMessageId.Error;
             }
+
             return RedirectToAction("ManageLogins", new { Message = message });
         }
 
@@ -103,10 +106,10 @@ namespace TestingSystem.Web.Controllers
             {
                 await SignInAsync(user, isPersistent: false);
             }
+
             return RedirectToAction("Index", "Manage");
         }
 
-        //
         // POST: /Manage/DisableTwoFactorAuthentication
         [HttpPost]
         public async Task<ActionResult> DisableTwoFactorAuthentication()
@@ -117,17 +120,16 @@ namespace TestingSystem.Web.Controllers
             {
                 await SignInAsync(user, isPersistent: false);
             }
+
             return RedirectToAction("Index", "Manage");
         }
 
-        //
         // GET: /Manage/ChangePassword
         public ActionResult ChangePassword()
         {
             return View();
         }
 
-        //
         // POST: /Manage/ChangePassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -137,6 +139,7 @@ namespace TestingSystem.Web.Controllers
             {
                 return View(model);
             }
+
             var result = await UserManager.ChangePasswordAsync(User.Identity.GetUserId(), model.OldPassword, model.NewPassword);
             if (result.Succeeded)
             {
@@ -145,20 +148,20 @@ namespace TestingSystem.Web.Controllers
                 {
                     await SignInAsync(user, isPersistent: false);
                 }
+
                 return RedirectToAction("Index", new { Message = ManageMessageId.ChangePasswordSuccess });
             }
+
             AddErrors(result);
             return View(model);
         }
 
-        //
         // GET: /Manage/SetPassword
         public ActionResult SetPassword()
         {
             return View();
         }
 
-        //
         // POST: /Manage/SetPassword
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -174,8 +177,10 @@ namespace TestingSystem.Web.Controllers
                     {
                         await SignInAsync(user, isPersistent: false);
                     }
+
                     return RedirectToAction("Index", new { Message = ManageMessageId.SetPasswordSuccess });
                 }
+
                 AddErrors(result);
             }
 
@@ -183,19 +188,19 @@ namespace TestingSystem.Web.Controllers
             return View(model);
         }
 
-        //
         // GET: /Manage/ManageLogins
         public async Task<ActionResult> ManageLogins(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
                 message == ManageMessageId.RemoveLoginSuccess ? "The external login was removed."
                 : message == ManageMessageId.Error ? "An error has occurred."
-                : "";
+                : string.Empty;
             var user = await UserManager.FindByIdAsync(User.Identity.GetUserId());
             if (user == null)
             {
                 return View("Error");
             }
+
             var userLogins = await UserManager.GetLoginsAsync(User.Identity.GetUserId());
             var otherLogins = AuthenticationManager.GetExternalAuthenticationTypes().Where(auth => userLogins.All(ul => auth.AuthenticationType != ul.LoginProvider)).ToList();
             ViewBag.ShowRemoveButton = user.PasswordHash != null || userLogins.Count > 1;
@@ -206,7 +211,6 @@ namespace TestingSystem.Web.Controllers
             });
         }
 
-        //
         // POST: /Manage/LinkLogin
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -216,7 +220,6 @@ namespace TestingSystem.Web.Controllers
             return new AccountController.ChallengeResult(provider, Url.Action("LinkLoginCallback", "Manage"), User.Identity.GetUserId());
         }
 
-        //
         // GET: /Manage/LinkLoginCallback
         public async Task<ActionResult> LinkLoginCallback()
         {
@@ -225,6 +228,7 @@ namespace TestingSystem.Web.Controllers
             {
                 return RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
             }
+
             var result = await UserManager.AddLoginAsync(User.Identity.GetUserId(), loginInfo.Login);
             return result.Succeeded ? RedirectToAction("ManageLogins") : RedirectToAction("ManageLogins", new { Message = ManageMessageId.Error });
         }
@@ -251,7 +255,7 @@ namespace TestingSystem.Web.Controllers
         {
             foreach (var error in result.Errors)
             {
-                ModelState.AddModelError("", error);
+                ModelState.AddModelError(string.Empty, error);
             }
         }
 
@@ -262,6 +266,7 @@ namespace TestingSystem.Web.Controllers
             {
                 return user.PasswordHash != null;
             }
+
             return false;
         }
 
@@ -272,6 +277,7 @@ namespace TestingSystem.Web.Controllers
             {
                 return user.PhoneNumber != null;
             }
+
             return false;
         }
 

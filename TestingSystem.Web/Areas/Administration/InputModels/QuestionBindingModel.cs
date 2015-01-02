@@ -1,14 +1,10 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using TestingSystem.Models;
-using TestingSystem.Web.Infrastructure.Mapping;
-
-namespace TestingSystem.Web.Areas.Administration.InputModels
+﻿namespace TestingSystem.Web.Areas.Administration.InputModels
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using TestingSystem.Models;
+    using TestingSystem.Web.Infrastructure.Mapping;
+
     public class QuestionBindingModel : IMapFrom<Question>
     {
         public int ID { get; set; }

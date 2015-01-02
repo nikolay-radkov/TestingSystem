@@ -1,14 +1,12 @@
-﻿using AutoMapper;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using TestingSystem.Models;
-using TestingSystem.Web.Infrastructure.Mapping;
-
-namespace TestingSystem.Web.Areas.Administration.ViewModels
+﻿namespace TestingSystem.Web.Areas.Administration.ViewModels
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using AutoMapper;
+
+    using TestingSystem.Models;
+    using TestingSystem.Web.Infrastructure.Mapping;
+
     public class CourseViewModel : IMapFrom<Course>, IHaveCustomMappings
     {
         public int ID { get; set; }

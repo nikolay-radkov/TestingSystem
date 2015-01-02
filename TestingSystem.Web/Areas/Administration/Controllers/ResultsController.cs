@@ -1,19 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using TestingSystem.Data;
-using TestingSystem.Models;
-using TestingSystem.Web.Controllers.Base;
-using AutoMapper.QueryableExtensions;
-using TestingSystem.Web.Areas.Administration.ViewModels;
-
-namespace TestingSystem.Web.Areas.Administration.Controllers
+﻿namespace TestingSystem.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
+    using TestingSystem.Data;
+    using TestingSystem.Web.Areas.Administration.ViewModels;
+    using TestingSystem.Web.Controllers.Base;
+
     [Authorize(Roles = "admin")]
     public class ResultsController : BaseController
     {
@@ -32,7 +27,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
                                 .To<ResultViewModel>()
                                 .ToList();
 
-            return View(results);
+            return this.View(results);
         }
 
         protected override void Dispose(bool disposing)
@@ -41,6 +36,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 this.Data.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using TestingSystem.Data;
-using TestingSystem.Models;
-using TestingSystem.Web.Controllers.Base;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using TestingSystem.Web.Areas.Administration.ViewModels;
-using TestingSystem.Web.Areas.Administration.InputModels;
-
-namespace TestingSystem.Web.Areas.Administration.Controllers
+﻿namespace TestingSystem.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
+    using TestingSystem.Data;
+    using TestingSystem.Models;
+    using TestingSystem.Web.Areas.Administration.InputModels;
+    using TestingSystem.Web.Areas.Administration.ViewModels;
+    using TestingSystem.Web.Controllers.Base;
+
     [Authorize(Roles = "admin")]
     public class CoursesController : BaseController
     {
         public CoursesController(ITestingSystemData data)
-            : base (data)
+            : base(data)
         {
         }
 
@@ -33,9 +29,9 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
                             .AsQueryable()
                             .Project()
                             .To<CourseViewModel>()
-                            .ToList(); ;
-           
-            return View(courses);
+                            .ToList();
+
+            return this.View(courses);
         }
 
         // GET: Administration/Courses/Details/5
@@ -47,22 +43,22 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             }
 
             var course = this.Data.Courses.GetById(id);
-            
+
             if (course == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<CourseViewModel>(course);
 
-            return View(result);
+            return this.View(result);
         }
 
         // GET: Administration/Courses/Create
         public ActionResult Create()
         {
             ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name");
-            return View();
+            return this.View();
         }
 
         // POST: Administration/Courses/Create
@@ -78,11 +74,11 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
 
                 this.Data.Courses.Add(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", course.SpecialtyID);
-            return View(course);
+            return this.View(course);
         }
 
         // GET: Administration/Courses/Edit/5
@@ -94,17 +90,17 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             }
 
             var course = this.Data.Courses.GetById(id);
-           
+
             if (course == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<CourseBindingModel>(course);
 
             ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", course.SpecialtyID);
-         
-            return View(result);
+
+            return this.View(result);
         }
 
         // POST: Administration/Courses/Edit/5
@@ -118,10 +114,11 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
 
                 this.Data.Courses.Update(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
+
             ViewBag.SpecialtyID = new SelectList(this.Data.Specialties.All(), "ID", "Name", course.SpecialtyID);
-            return View(course);
+            return this.View(course);
         }
 
         // GET: Administration/Courses/Delete/5
@@ -133,15 +130,15 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             }
 
             var course = this.Data.Courses.GetById(id);
-            
+
             if (course == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<CourseViewModel>(course);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Courses/Delete/5
@@ -152,7 +149,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             Course course = this.Data.Courses.GetById(id);
             this.Data.Courses.Delete(course);
             this.Data.SaveChanges();
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -161,6 +158,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 this.Data.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

@@ -18,18 +18,18 @@
             WebClient w = new WebClient();
             w.Headers.Add("Authorization", "Client-ID " + ClientId);
 
-            NameValueCollection Keys = new NameValueCollection();
+            NameValueCollection keys = new NameValueCollection();
             try
             {
-                Keys.Add("image", Convert.ToBase64String(image));
+                keys.Add("image", Convert.ToBase64String(image));
 
-                byte[] responseArray = w.UploadValues("https://api.imgur.com/3/image", Keys);
+                byte[] responseArray = w.UploadValues("https://api.imgur.com/3/image", keys);
                 dynamic result = Encoding.ASCII.GetString(responseArray);
 
                 Regex reg = new Regex("link\":\"(.*?)\"");
                 Match match = reg.Match(result);
 
-                string url = match.ToString().Replace("link\":\"", "").Replace("\"", "").Replace("\\/", "/");
+                string url = match.ToString().Replace("link\":\"", string.Empty).Replace("\"", string.Empty).Replace("\\/", "/");
 
                 return url;
             }

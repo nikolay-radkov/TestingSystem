@@ -1,20 +1,16 @@
 ﻿namespace TestingSystem.Web.Areas.Administration.Controllers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Data;
-    using System.Data.Entity;
     using System.Linq;
     using System.Net;
-    using System.Web;
     using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
     using TestingSystem.Data;
     using TestingSystem.Models;
-    using TestingSystem.Web.Controllers.Base;
-    using AutoMapper;
-    using AutoMapper.QueryableExtensions;
-    using TestingSystem.Web.Areas.Administration.ViewModels;
     using TestingSystem.Web.Areas.Administration.InputModels;
+    using TestingSystem.Web.Areas.Administration.ViewModels;
+    using TestingSystem.Web.Controllers.Base;
 
     [Authorize(Roles = "admin")]
     public class TestsController : BaseController
@@ -35,7 +31,7 @@
                             .To<TestViewModel>()
                             .ToList();
 
-            return View(tests);
+            return this.View(tests);
         }
 
         // GET: Administration/Tests/Details/5
@@ -46,23 +42,23 @@
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var  test = this.Data.Tests.GetById(id);
+            var test = this.Data.Tests.GetById(id);
 
             if (test == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<TestViewModel>(test);
 
-            return View(result);
+            return this.View(result);
         }
 
         // GET: Administration/Tests/Create
         public ActionResult Create()
         {
             ViewBag.CourseID = new SelectList(this.Data.Courses.All(), "ID", "Name");
-            return View();
+            return this.View();
         }
 
         // POST: Administration/Tests/Create
@@ -78,11 +74,11 @@
             {
                 this.Data.Tests.Add(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             ViewBag.CourseID = new SelectList(this.Data.Courses.All(), "ID", "Name", test.CourseID);
-            return View(test);
+            return this.View(test);
         }
 
         // GET: Administration/Tests/Edit/5
@@ -94,17 +90,17 @@
             }
 
             var test = this.Data.Tests.GetById(id);
-            
+
             if (test == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<TestBindingModel>(test);
 
             ViewBag.CourseID = new SelectList(this.Data.Courses.All(), "ID", "Name", test.CourseID);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Tests/Edit/5
@@ -120,12 +116,12 @@
             {
                 this.Data.Tests.Update(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             ViewBag.CourseID = new SelectList(this.Data.Courses.All(), "ID", "Name", test.CourseID);
-            
-            return View(test);
+
+            return this.View(test);
         }
 
         // GET: Administration/Tests/Delete/5
@@ -137,15 +133,15 @@
             }
 
             var test = this.Data.Tests.GetById(id);
-            
+
             if (test == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<TestViewModel>(test);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Tests/Delete/5
@@ -156,7 +152,7 @@
             var test = this.Data.Tests.GetById(id);
             this.Data.Tests.Delete(test);
             this.Data.SaveChanges();
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -165,6 +161,7 @@
             {
                 this.Data.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

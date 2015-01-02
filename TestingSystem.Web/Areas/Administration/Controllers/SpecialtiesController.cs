@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using TestingSystem.Data;
-using TestingSystem.Models;
-using TestingSystem.Web.Areas.Administration.ViewModels;
-using TestingSystem.Web.Controllers.Base;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using TestingSystem.Web.Areas.Administration.InputModels;
-
-namespace TestingSystem.Web.Areas.Administration.Controllers
+﻿namespace TestingSystem.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+
+    using TestingSystem.Data;
+    using TestingSystem.Models;
+    using TestingSystem.Web.Areas.Administration.InputModels;
+    using TestingSystem.Web.Areas.Administration.ViewModels;
+    using TestingSystem.Web.Controllers.Base;
+
     [Authorize(Roles = "admin")]
     public class SpecialtiesController : BaseController
     {
         public SpecialtiesController(ITestingSystemData data)
-            : base (data)
+            : base(data)
         {
         }
 
@@ -35,7 +31,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
                            .To<SpecialtyViewModel>()
                            .ToList();
 
-            return View(specialties);
+            return this.View(specialties);
         }
 
         // GET: Administration/Specialties/Details/5
@@ -47,21 +43,21 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             }
 
             var specialty = this.Data.Specialties.GetById(id);
-            
+
             if (specialty == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<SpecialtyViewModel>(specialty);
 
-            return View(result);
+            return this.View(result);
         }
 
         // GET: Administration/Specialties/Create
         public ActionResult Create()
         {
-            return View();
+            return this.View();
         }
 
         // POST: Administration/Specialties/Create
@@ -77,10 +73,10 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
 
                 this.Data.Specialties.Add(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
-            return View(specialty);
+            return this.View(specialty);
         }
 
         // GET: Administration/Specialties/Edit/5
@@ -92,15 +88,15 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             }
 
             var specialty = this.Data.Specialties.GetById(id);
-           
+
             if (specialty == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<SpecialtyBindingModel>(specialty);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Specialties/Edit/5
@@ -114,10 +110,10 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
 
                 this.Data.Specialties.Update(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
-            return View(specialty);
+            return this.View(specialty);
         }
 
         // GET: Administration/Specialties/Delete/5
@@ -132,12 +128,12 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
 
             if (specialty == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<SpecialtyViewModel>(specialty);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Specialties/Delete/5
@@ -148,7 +144,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             Specialty specialty = this.Data.Specialties.GetById(id);
             this.Data.Specialties.Delete(specialty);
             this.Data.SaveChanges();
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -157,6 +153,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 this.Data.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }

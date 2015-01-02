@@ -1,7 +1,9 @@
 ﻿namespace TestingSystem.Web.Areas.Administration.ViewModels
 {
-    using AutoMapper;
     using System.ComponentModel.DataAnnotations;
+
+    using AutoMapper;
+
     using TestingSystem.Models;
     using TestingSystem.Web.Infrastructure.Mapping;
 

@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Web;
-using TestingSystem.Models;
-using TestingSystem.Web.Infrastructure.Mapping;
-
-namespace TestingSystem.Web.Areas.Administration.InputModels
+﻿namespace TestingSystem.Web.Areas.Administration.InputModels
 {
+    using System.ComponentModel.DataAnnotations;
+
+    using TestingSystem.Models;
+    using TestingSystem.Web.Infrastructure.Mapping;
+
     public class NewStudentBindingModel : IMapFrom<Student>
     {
         [Required(ErrorMessage = "{0} е задължително поле!")]
-        [MinLength(5, ErrorMessage="{0} трябва да бъде поне 5 символа")]
+        [MinLength(5, ErrorMessage = "{0} трябва да бъде поне 5 символа")]
         [MaxLength(256, ErrorMessage = "{0} трябва да бъде  символа")]
         [Display(Name = "Пълно име")]
         public string FullName { get; set; }

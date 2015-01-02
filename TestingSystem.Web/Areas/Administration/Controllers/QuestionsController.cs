@@ -1,25 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
-using System.Linq;
-using System.Net;
-using System.Web;
-using System.Web.Mvc;
-using TestingSystem.Data;
-using TestingSystem.Models;
-using TestingSystem.Web.Areas.Administration.ViewModels;
-using TestingSystem.Web.Controllers.Base;
-using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using TestingSystem.Web.Areas.Administration.InputModels;
-
-namespace TestingSystem.Web.Areas.Administration.Controllers
+﻿namespace TestingSystem.Web.Areas.Administration.Controllers
 {
+    using System.Linq;
+    using System.Net;
+    using System.Web.Mvc;
+
+    using AutoMapper.QueryableExtensions;
+   
+    using TestingSystem.Data;
+    using TestingSystem.Models;
+    using TestingSystem.Web.Areas.Administration.InputModels;
+    using TestingSystem.Web.Areas.Administration.ViewModels;
+    using TestingSystem.Web.Controllers.Base;
+
     [Authorize(Roles = "admin")]
     public class QuestionsController : BaseController
     {
-
         public QuestionsController(ITestingSystemData data)
             : base(data)
         {
@@ -36,7 +31,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
                                     .To<QuestionViewModel>()
                                     .ToList();
 
-            return View(questions);
+            return this.View(questions);
         }
 
         // GET: Administration/Questions/Details/5
@@ -51,19 +46,19 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             
             if (question == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<QuestionViewModel>(question);
 
-            return View(result);
+            return this.View(result);
         }
 
         // GET: Administration/Questions/Create
         public ActionResult Create()
         {
-            ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name");
-            return View();
+            this.ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name");
+            return this.View();
         }
 
         // POST: Administration/Questions/Create
@@ -79,11 +74,11 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 this.Data.Questions.Add(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name", question.TestID);
-            return View(question);
+            return this.View(question);
         }
 
         // GET: Administration/Questions/Edit/5
@@ -98,14 +93,14 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             
             if (question == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<QuestionBindingModel>(question);
 
             ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name", question.TestID);
             
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Questions/Edit/5
@@ -119,12 +114,12 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 this.Data.Questions.Update(result);
                 this.Data.SaveChanges();
-                return RedirectToAction("Index");
+                return this.RedirectToAction("Index");
             }
 
             ViewBag.TestID = new SelectList(this.Data.Tests.All(), "ID", "Name", question.TestID);
            
-            return View(question);
+            return this.View(question);
         }
 
         // GET: Administration/Questions/Delete/5
@@ -139,12 +134,12 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             
             if (question == null)
             {
-                return HttpNotFound();
+                return this.HttpNotFound();
             }
 
             var result = AutoMapper.Mapper.Map<QuestionViewModel>(question);
 
-            return View(result);
+            return this.View(result);
         }
 
         // POST: Administration/Questions/Delete/5
@@ -155,7 +150,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             var question = this.Data.Questions.GetById(id);
             this.Data.Questions.Delete(question);
             this.Data.SaveChanges();
-            return RedirectToAction("Index");
+            return this.RedirectToAction("Index");
         }
 
         protected override void Dispose(bool disposing)
@@ -164,6 +159,7 @@ namespace TestingSystem.Web.Areas.Administration.Controllers
             {
                 this.Data.Dispose();
             }
+
             base.Dispose(disposing);
         }
     }
