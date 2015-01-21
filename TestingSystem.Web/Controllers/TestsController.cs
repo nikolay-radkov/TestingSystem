@@ -33,14 +33,14 @@
             var studentID = this.User.Identity.GetUserId();
             var student = this.Data.Students.GetById(studentID);
 
-            // TODO: Check the user results for current tests
             var tests = this.Data
                             .Tests
                             .All()
                             .Where(t => t.Course.SpecialtyID == student.SpecialtyID
                                 && t.EndDate > DateTime.Now
                                 && t.StartDate < DateTime.Now
-                                && t.Course.Semester == student.Semester)
+                                && t.Course.Semester == student.Semester
+                                && t.Results.Count(r => r.StudentID == student.Id) == 0)
                             .AsQueryable()
                             .Project()
                             .To<TestViewModel>()
@@ -69,7 +69,6 @@
                 this.Session["Visited"] = "True";
             }
 
-            // TODO: Chech if is authorize
             var questions = this.Data
                                 .Questions
                                 .All()
