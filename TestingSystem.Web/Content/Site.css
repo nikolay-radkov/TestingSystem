@@ -290,3 +290,11 @@ img.action-icon {
     width: 25px;
     height: 25px;
 }
+
+/*----Forbit copying----*/
+.protected {
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}

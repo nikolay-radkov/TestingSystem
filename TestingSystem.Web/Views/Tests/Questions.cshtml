@@ -24,7 +24,7 @@
                         </a>
                     </div>
                 </div>
-                <div id="answers" class="col-lg-10 col-md-10 col-sm-10 col-xs-10 bhoechie-tab">
+                <div id="answers" class="protected col-lg-10 col-md-10 col-sm-10 col-xs-10 bhoechie-tab">
                     <!-- questions section -->
                     @foreach (var question in Model)
                     {
@@ -58,7 +58,7 @@
                         <br />
                         <h2>Проверете внимателно дали сте отговорили на всички въпроси преди да приключите теста!</h2>
                         <br />
-                        <button class="btn btn-lg btn-danger" onclick="getAnswers()">Провери</button>
+                        <button id="check" class="btn btn-lg btn-danger">Провери</button>
                         <br />
                     </div>
                     <div class="bhoechie-tab-content active text-center">
@@ -83,56 +83,62 @@
 @section Scripts
 {
     <script language="javascript" type="text/javascript">
-        $(document).ready(function () {
-            $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
-                e.preventDefault();
-                $(this).siblings('a.active').removeClass("active");
-                $(this).addClass("active");
-                var index = $(this).index();
-                $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
-                $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+        (function () {
+            $(document).ready(function () {
+                $("div.bhoechie-tab-menu>div.list-group>a").click(function (e) {
+                    e.preventDefault();
+                    $(this).siblings('a.active').removeClass("active");
+                    $(this).addClass("active");
+                    var index = $(this).index();
+                    $("div.bhoechie-tab>div.bhoechie-tab-content").removeClass("active");
+                    $("div.bhoechie-tab>div.bhoechie-tab-content").eq(index).addClass("active");
+                });
+
+                $('#answers input').change(function (e) {
+                    var index = $('#answers>.active').index();
+                    parseInt($(this).attr('name').replace('ID-', '')) - 1;
+                    $('div.bhoechie-tab-menu>div.list-group>a').eq(index).addClass('answered');
+                });
+
+                $(window).bind('beforeunload', function () {
+                    return 'Внимание!';
+                });
             });
 
-            $('#answers input').change(function (e) {
-                var index = $('#answers>.active').index();
-                parseInt($(this).attr('name').replace('ID-', '')) - 1;
-                $('div.bhoechie-tab-menu>div.list-group>a').eq(index).addClass('answered');
-            });
+            var seconds = 60 * 20;
+            var timeLimit = seconds;
+            var interval = 1000;
+            var countdownTimer = setInterval(secondPassed, interval);
 
-            $(window).bind('beforeunload', function () {
-                return 'Внимание!';
-            });
-        });
-
-        var seconds = 60 * 20;
-        var interval = 1000;
-        var countdownTimer = setInterval('secondPassed()', interval);
-
-        function secondPassed() {
-            var minutes = Math.round((seconds - 30) / 60);
-            var remainingSeconds = seconds % 60;
-            if (remainingSeconds < 10) {
-                remainingSeconds = "0" + remainingSeconds;
+            function secondPassed() {
+                var minutes = Math.round((seconds - 30) / 60);
+                var remainingSeconds = seconds % 60;
+                if (remainingSeconds < 10) {
+                    remainingSeconds = "0" + remainingSeconds;
+                }
+                document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
+                if (seconds <= 0 || isNaN(seconds) || seconds > timeLimit) {
+                    clearInterval(countdownTimer);
+                    $(window).unbind('beforeunload');
+                    getAnswers();
+                } else {
+                    seconds--;
+                }
             }
-            document.getElementById('countdown').innerHTML = minutes + ":" + remainingSeconds;
-            if (seconds == 0) {
-                clearInterval(countdownTimer);
-                getAnswers();
-            } else {
-                seconds--;
+
+            function getAnswers() {
+                var selected = [];
+                $('#answers input:checked').each(function () {
+                    selected.push($(this).val());
+                });
+
+                var answers = selected.join(',');
+
+                $('#user-answers')[0].value = answers;
+                $('#finish').click();
             }
-        }
 
-        function getAnswers() {
-            var selected = [];
-            $('#answers input:checked').each(function () {
-                selected.push($(this).val());
-            });
-
-            var answers = selected.join(',');
-
-            $('#user-answers')[0].value = answers;
-            $('#finish').click();
-        }
-</script>
+            $('#check').click(getAnswers);
+        }())
+    </script>
 }
