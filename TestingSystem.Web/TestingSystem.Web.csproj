@@ -367,13 +367,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.ttf" />
     <Content Include="fonts\glyphicons-halflings-regular.eot" />
     <None Include="Scripts\jquery-2.1.1.intellisense.js" />
+    <Content Include="Images\android.png" />
     <Content Include="Images\background.jpg" />
     <Content Include="Images\delete.png" />
     <Content Include="Images\edit.png" />
     <Content Include="Images\icon.png" />
     <Content Include="Images\info.png" />
     <Content Include="Images\right-turquoise%402x.png" />
+    <Content Include="Images\telephones.png" />
     <Content Include="Images\tick.ico" />
+    <Content Include="Images\windows-phone.png" />
     <Content Include="Scripts\bootstrap-datetimepicker.js" />
     <Content Include="Scripts\bootstrap-datetimepicker.min.js" />
     <Content Include="Scripts\bootstrap.js" />
